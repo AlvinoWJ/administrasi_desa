@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratkematian.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratmenikah.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/utils/templatesurat.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/Administrasi_mandiri.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/suratdomisiliDAO.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratdomisili.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/surat.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/contoh.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratusaha.java</file>
         </group>
     </open-files>
 </project-private>
