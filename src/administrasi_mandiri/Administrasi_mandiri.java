@@ -4,6 +4,8 @@
  */
 package administrasi_mandiri;
 
+import administrasi_mandiri.database.koneksidatabase;
+import java.sql.Connection;
 /**
  *
  * @author hp
@@ -14,7 +16,13 @@ public class Administrasi_mandiri {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            System.out.println("✅ Koneksi ke database berhasil!");
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("❌ Koneksi gagal: " + e.getMessage());
+        }
     }
     
 }
