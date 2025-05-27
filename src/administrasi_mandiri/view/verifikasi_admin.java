@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+<<<<<<< HEAD
 package administrasi_mandiri.view;
+=======
+package administrasi_masyarakat.view;
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -58,18 +62,31 @@ public class verifikasi_admin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(250, 1080));
+<<<<<<< HEAD
+=======
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGap(0, 208, Short.MAX_VALUE)
+=======
+            .addGap(0, 0, Short.MAX_VALUE)
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 106, Short.MAX_VALUE)
         );
 
+<<<<<<< HEAD
+=======
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 208, -1));
+
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         jButton2.setBackground(new java.awt.Color(51, 0, 153));
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -80,6 +97,10 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
+=======
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 124, -1, -1));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         btnDashboard.setBackground(new java.awt.Color(51, 0, 153));
         btnDashboard.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -91,6 +112,10 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 btnDashboardActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
+=======
+        jPanel2.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, -1, -1));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         btnDaftarPengajuan.setBackground(new java.awt.Color(51, 0, 153));
         btnDaftarPengajuan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -102,6 +127,10 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 btnDaftarPengajuanActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
+=======
+        jPanel2.add(btnDaftarPengajuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 196, -1, -1));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         btnVerifikasi.setBackground(new java.awt.Color(51, 0, 153));
         btnVerifikasi.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -113,6 +142,10 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 btnVerifikasiActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
+=======
+        jPanel2.add(btnVerifikasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 232, -1, -1));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         btnRiwayat.setBackground(new java.awt.Color(51, 0, 153));
         btnRiwayat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -124,6 +157,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 btnRiwayatActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,6 +189,9 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(btnRiwayat))
         );
+=======
+        jPanel2.add(btnRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 268, -1, -1));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));

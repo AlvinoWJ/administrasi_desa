@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+<<<<<<< HEAD
 package administrasi_mandiri.view;
+=======
+package administrasi_masyarakat.view;
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
 /**
  *
@@ -47,6 +51,10 @@ public class dashboard_admin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 255));
+<<<<<<< HEAD
+=======
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(250, 1080));
@@ -153,6 +161,11 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addContainerGap(788, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
+=======
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 1080));
+
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -185,6 +198,11 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
+=======
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 280, 110));
+
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -211,6 +229,11 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
+=======
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 230, 290, 110));
+
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -238,6 +261,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+<<<<<<< HEAD
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -265,6 +289,9 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+=======
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 440, 280, 110));
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,12 +299,20 @@ public class dashboard_admin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 12, Short.MAX_VALUE)
+<<<<<<< HEAD
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE))
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 

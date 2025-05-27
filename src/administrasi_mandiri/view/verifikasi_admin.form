@@ -119,6 +119,7 @@
             </Property>
           </Properties>
 
+<<<<<<< HEAD
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -156,11 +157,27 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel3">
+=======
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+            <Property name="useNullLayout" type="boolean" value="false"/>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel3">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="6" width="208" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
                       <EmptySpace min="0" pref="208" max="32767" attributes="0"/>
+=======
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -187,6 +204,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
               </Events>
+<<<<<<< HEAD
+=======
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="124" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
             </Component>
             <Component class="javax.swing.JButton" name="btnDashboard">
               <Properties>
@@ -205,6 +230,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDashboardActionPerformed"/>
               </Events>
+<<<<<<< HEAD
+=======
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="160" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
             </Component>
             <Component class="javax.swing.JButton" name="btnDaftarPengajuan">
               <Properties>
@@ -223,6 +256,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDaftarPengajuanActionPerformed"/>
               </Events>
+<<<<<<< HEAD
+=======
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="196" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
             </Component>
             <Component class="javax.swing.JButton" name="btnVerifikasi">
               <Properties>
@@ -241,6 +282,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerifikasiActionPerformed"/>
               </Events>
+<<<<<<< HEAD
+=======
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="232" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
             </Component>
             <Component class="javax.swing.JButton" name="btnRiwayat">
               <Properties>
@@ -259,6 +308,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRiwayatActionPerformed"/>
               </Events>
+<<<<<<< HEAD
+=======
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="6" y="268" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+>>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
             </Component>
           </SubComponents>
         </Container>
