@@ -84,20 +84,6 @@
                               </Group>
                               <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-<<<<<<< HEAD
-                                  <Component id="txtAlamat" alignment="0" pref="1262" max="32767" attributes="0"/>
-                                  <Component id="txtPekerjaan" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField6" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtAgama" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtTTL" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtJenisKelamin" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtNIK" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtNama" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Component id="Simpan" alignment="0" min="-2" max="-2" attributes="0"/>
-=======
                                   <Component id="jTextField8" alignment="0" pref="1262" max="32767" attributes="0"/>
                                   <Component id="jTextField7" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextField6" alignment="0" max="32767" attributes="0"/>
@@ -110,7 +96,6 @@
                           </Group>
                       </Group>
                       <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -125,47 +110,27 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                      <Component id="txtNama" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtNIK" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-<<<<<<< HEAD
-                      <Component id="txtJenisKelamin" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-<<<<<<< HEAD
-                      <Component id="txtTTL" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                      <Component id="txtAgama" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -174,20 +139,12 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-<<<<<<< HEAD
-                      <Component id="txtPekerjaan" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-<<<<<<< HEAD
-                      <Component id="txtAlamat" alignment="3" min="-2" max="-2" attributes="0"/>
-=======
                       <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -201,11 +158,7 @@
                       <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                  <Component id="Simpan" min="-2" max="-2" attributes="0"/>
-=======
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
                   <EmptySpace min="-2" pref="1339" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -365,20 +318,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-<<<<<<< HEAD
-            <Property name="text" type="java.lang.String" value="Nama"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtNama">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaActionPerformed"/>
-          </Events>
-=======
             <Property name="text" type="java.lang.String" value="NIK:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -388,11 +331,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-<<<<<<< HEAD
-            <Property name="text" type="java.lang.String" value="NIK:"/>
-=======
             <Property name="text" type="java.lang.String" value="Nama:"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -417,24 +356,6 @@
             <Property name="text" type="java.lang.String" value="Tempat Tanggal Lahir:"/>
           </Properties>
         </Component>
-<<<<<<< HEAD
-        <Component class="javax.swing.JTextField" name="txtNIK">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNIKActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtJenisKelamin">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtJenisKelaminActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtTTL">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTTLActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtAgama">
-=======
         <Component class="javax.swing.JTextField" name="jTextField2">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField3">
@@ -442,7 +363,6 @@
         <Component class="javax.swing.JTextField" name="jTextField4">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField5">
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -468,14 +388,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField6">
         </Component>
-<<<<<<< HEAD
-        <Component class="javax.swing.JTextField" name="txtPekerjaan">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPekerjaanActionPerformed"/>
-          </Events>
-=======
         <Component class="javax.swing.JTextField" name="jTextField7">
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -488,14 +401,7 @@
             <Property name="text" type="java.lang.String" value="Pekerjaan:"/>
           </Properties>
         </Component>
-<<<<<<< HEAD
-        <Component class="javax.swing.JTextField" name="txtAlamat">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAlamatActionPerformed"/>
-          </Events>
-=======
         <Component class="javax.swing.JTextField" name="jTextField8">
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField10">
         </Component>
@@ -534,11 +440,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField11">
         </Component>
-<<<<<<< HEAD
-        <Component class="javax.swing.JButton" name="Simpan">
-=======
         <Component class="javax.swing.JButton" name="jButton1">
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -546,11 +448,7 @@
             <Property name="text" type="java.lang.String" value="Kirim"/>
           </Properties>
           <Events>
-<<<<<<< HEAD
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SimpanActionPerformed"/>
-=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
           </Events>
         </Component>
       </SubComponents>

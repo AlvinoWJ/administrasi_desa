@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-<<<<<<< HEAD
-package administrasi_mandiri.view;
-=======
 package administrasi_masyarakat.view;
->>>>>>> ba420364dd8d6512c3b50950bb6ba1e9defc814a
+
+import administrasi_mandiri.view.dashboard_admin;
 
 /**
  *
