@@ -121,7 +121,7 @@ public class templatesurat {
         surat.getAlamat(),
         surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
         surat.getNamaPasangan(), surat.getKewarganegaraanPasangan(),
-        surat.getDesa(), surat.getTanggalPengajuan(), surat.getDesa()
+        surat.getDesa(), surat.getDesa()
         );
     }
 }

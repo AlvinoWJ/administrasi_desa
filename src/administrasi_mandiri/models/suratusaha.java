@@ -1,8 +1,5 @@
 package administrasi_mandiri.models;
 
-import administrasi_mandiri.utils.templatesurat;
-import java.time.LocalDate;
-
 public class suratusaha extends surat {
     private String jenisKelamin;
     private String agama;
@@ -12,11 +9,11 @@ public class suratusaha extends surat {
     private String jenisUsaha;
     private String alamatUsaha;
 
-public suratusaha(String nomorSurat, String nama, String tempatTanggalLahir, String nik,
-                                   String alamat, LocalDate tanggalPengajuan, String jenisKelamin, String agama, 
-                                   String statusPerkawinan, String pekerjaan, String namaUsaha, String jenisUsaha,
-                                   String alamatUsaha) {
-        super(nomorSurat, nama, tempatTanggalLahir, nik, alamat, tanggalPengajuan);
+public suratusaha(String nama, String tempatTanggalLahir, String nik,
+                String alamat, String jenisKelamin, String agama, 
+                String statusPerkawinan, String pekerjaan, String namaUsaha, String jenisUsaha,
+                String alamatUsaha) {
+        super(nama, tempatTanggalLahir, nik, alamat);
         this.jenisKelamin = jenisKelamin;
         this.agama = agama;
         this.statusPerkawinan = statusPerkawinan;

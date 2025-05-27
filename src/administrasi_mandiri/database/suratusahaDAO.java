@@ -1,30 +1,30 @@
 package administrasi_mandiri.database;
 
-import administrasi_mandiri.models.suratdomisili;
-
+import administrasi_mandiri.models.suratusaha;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class suratdomisiliDAO {
+public class suratusahaDAO {
     private Connection connection;
 
-    public suratdomisiliDAO(Connection connection) {
+    public suratusahaDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public void insert(suratdomisili surat) throws SQLException {
+    public void insert(suratusaha surat) throws SQLException {
         String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, desa, kecamatan, kabupaten, jenis_surat) " +
                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String insertDomisiliSQL = "INSERT INTO surat_domisili (nomor_surat, jenis_kelamin, agama, pekerjaan) VALUES (?, ?, ?, ?)";
+        String insertUsahaSQL = "INSERT INTO surat_usaha (nomor_surat, jenis_kelamin, agama, status_perkawinan, pekerjaan, nama_usaha, jenis_usaha, alamat_usaha) " +
+                               "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL);
-            PreparedStatement stmt2 = connection.prepareStatement(insertDomisiliSQL)
+            PreparedStatement stmt2 = connection.prepareStatement(insertUsahaSQL)
         ) {
             connection.setAutoCommit(false);
 
-            // Tabel surat (umum)
+            // Insert ke tabel surat (umum)
             stmt1.setString(1, surat.getNomorSurat());
             stmt1.setString(2, surat.getNama());
             stmt1.setString(3, surat.getNik());
@@ -36,11 +36,15 @@ public class suratdomisiliDAO {
             stmt1.setString(9, surat.getJenisSurat());
             stmt1.executeUpdate();
 
-            // Tabel khusus domisili
+            // Insert ke tabel surat_usaha (khusus)
             stmt2.setString(1, surat.getNomorSurat());
             stmt2.setString(2, surat.getJenisKelamin());
             stmt2.setString(3, surat.getAgama());
-            stmt2.setString(4, surat.getPekerjaan());
+            stmt2.setString(4, surat.getStatusPerkawinan());
+            stmt2.setString(5, surat.getPekerjaan());
+            stmt2.setString(6, surat.getNamaUsaha());
+            stmt2.setString(7, surat.getJenisUsaha());
+            stmt2.setString(8, surat.getAlamatUsaha());
             stmt2.executeUpdate();
 
             connection.commit();
@@ -52,22 +56,26 @@ public class suratdomisiliDAO {
         }
     }
 
-    public suratdomisili getByNomorSurat(String nomorSurat) throws SQLException {
-        String sql = "SELECT s.*, d.jenis_kelamin, d.agama, d.pekerjaan " +
-                     "FROM surat s JOIN surat_domisili d ON s.nomor_surat = d.nomor_surat " +
+    public suratusaha getByNomorSurat(String nomorSurat) throws SQLException {
+        String sql = "SELECT s.*, u.* FROM surat s " +
+                     "JOIN surat_usaha u ON s.nomor_surat = u.nomor_surat " +
                      "WHERE s.nomor_surat = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nomorSurat);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    suratdomisili surat = new suratdomisili(
+                    suratusaha surat = new suratusaha(
                         rs.getString("nama"),
-                        rs.getString("nik"),
                         rs.getString("tempat_tanggal_lahir"),
+                        rs.getString("nik"),
+                        rs.getString("alamat"),
                         rs.getString("jenis_kelamin"),
                         rs.getString("agama"),
+                        rs.getString("status_perkawinan"),
                         rs.getString("pekerjaan"),
-                        rs.getString("alamat")
+                        rs.getString("nama_usaha"),
+                        rs.getString("jenis_usaha"),
+                        rs.getString("alamat_usaha")
                     );
                     surat.setNomorSurat(rs.getString("nomor_surat"));
                     return surat;
@@ -78,12 +86,12 @@ public class suratdomisiliDAO {
     }
 
     public void delete(String nomorSurat) throws SQLException {
-        String sqlDeleteDomisili = "DELETE FROM surat_domisili WHERE nomor_surat = ?";
-        String sqlDeleteSurat = "DELETE FROM surat WHERE nomor_surat = ?";
+        String deleteUsahaSQL = "DELETE FROM surat_usaha WHERE nomor_surat = ?";
+        String deleteSuratSQL = "DELETE FROM surat WHERE nomor_surat = ?";
 
         try (
-            PreparedStatement stmt1 = connection.prepareStatement(sqlDeleteDomisili);
-            PreparedStatement stmt2 = connection.prepareStatement(sqlDeleteSurat)
+            PreparedStatement stmt1 = connection.prepareStatement(deleteUsahaSQL);
+            PreparedStatement stmt2 = connection.prepareStatement(deleteSuratSQL)
         ) {
             connection.setAutoCommit(false);
 
@@ -102,22 +110,26 @@ public class suratdomisiliDAO {
         }
     }
 
-    public List<suratdomisili> getAll() throws SQLException {
-        List<suratdomisili> list = new ArrayList<>();
-        String sql = "SELECT s.*, d.jenis_kelamin, d.agama, d.pekerjaan " +
-                     "FROM surat s JOIN surat_domisili d ON s.nomor_surat = d.nomor_surat " +
-                     "WHERE s.jenis_surat = 'Surat Keterangan Domisili'";
+    public List<suratusaha> getAll() throws SQLException {
+        List<suratusaha> list = new ArrayList<>();
+        String sql = "SELECT s.*, u.* FROM surat s " +
+                     "JOIN surat_usaha u ON s.nomor_surat = u.nomor_surat " +
+                     "WHERE s.jenis_surat = 'Surat Keterangan Usaha'";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                suratdomisili surat = new suratdomisili(
+                suratusaha surat = new suratusaha(
                     rs.getString("nama"),
-                    rs.getString("nik"),
                     rs.getString("tempat_tanggal_lahir"),
+                    rs.getString("nik"),
+                    rs.getString("alamat"),
                     rs.getString("jenis_kelamin"),
                     rs.getString("agama"),
+                    rs.getString("status_perkawinan"),
                     rs.getString("pekerjaan"),
-                    rs.getString("alamat")
+                    rs.getString("nama_usaha"),
+                    rs.getString("jenis_usaha"),
+                    rs.getString("alamat_usaha")
                 );
                 surat.setNomorSurat(rs.getString("nomor_surat"));
                 list.add(surat);

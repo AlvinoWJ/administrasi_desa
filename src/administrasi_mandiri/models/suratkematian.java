@@ -1,7 +1,5 @@
 package administrasi_mandiri.models;
 
-import java.time.LocalDate;
-
 public class suratkematian extends surat {
     private String jenisKelamin;
     private String Pekerjaan;
@@ -12,12 +10,12 @@ public class suratkematian extends surat {
     private String sebabKematian;
     private String yangMenerangkanKematian;
     private String tempatKematian;
-    
-    public suratkematian(String nomorSurat, String nama, String tempatTanggalLahir, String nik,
-                                   String alamat, LocalDate tanggalPengajuan, String jenisKelamin, String Pekerjaan, 
+   
+    public suratkematian(String nama, String tempatTanggalLahir, String nik,
+                                   String alamat, String jenisKelamin, String Pekerjaan, 
                                    String status, String agama, String hariTanggalMeninggal, String jamMeninggal,
                                    String sebabKematian, String yangMenerangkanKematian, String tempatKematian) {
-        super(nomorSurat, nama, tempatTanggalLahir, nik, alamat, tanggalPengajuan);
+        super(nama, tempatTanggalLahir, nik, alamat);
         this.jenisKelamin = jenisKelamin;
         this.Pekerjaan = Pekerjaan;
         this.status = status;

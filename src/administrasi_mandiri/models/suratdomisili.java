@@ -1,22 +1,17 @@
 package administrasi_mandiri.models;
 
-import java.time.LocalDate;
-
 public class suratdomisili extends surat {
     private String jenisKelamin;
     private String Pekerjaan;
     private String Agama;
 
-    public suratdomisili(String nomorSurat, String nama, String tempatTanggalLahir,
-                                String nik, String alamat, LocalDate tanggalPengajuan, String jenisKelamin,
-                                String Pekerjaan, String Agama, String desa, String kecamatan, String kabupaten) {
-        super(nomorSurat, nama, tempatTanggalLahir, nik, alamat, tanggalPengajuan);
+    public suratdomisili(String nama, String nik, String tempatTanggalLahir,
+                        String jenisKelamin, String Agama, String Pekerjaan, 
+                        String alamat) {
+        super(nama, nik, tempatTanggalLahir, alamat);
         this.jenisKelamin = jenisKelamin;
         this.Pekerjaan = Pekerjaan;
         this.Agama = Agama;
-        this.desa = desa;
-        this.kecamatan = kecamatan;
-        this.kabupaten = kabupaten;
     }
 
     public String getJenisKelamin() {return jenisKelamin;}

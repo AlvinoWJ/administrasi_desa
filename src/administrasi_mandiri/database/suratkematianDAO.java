@@ -1,26 +1,27 @@
 package administrasi_mandiri.database;
 
-import administrasi_mandiri.models.suratdomisili;
+import administrasi_mandiri.models.suratkematian;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class suratdomisiliDAO {
+public class suratkematianDAO {
     private Connection connection;
 
-    public suratdomisiliDAO(Connection connection) {
+    public suratkematianDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public void insert(suratdomisili surat) throws SQLException {
+    public void insert(suratkematian surat) throws SQLException {
         String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, desa, kecamatan, kabupaten, jenis_surat) " +
                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String insertDomisiliSQL = "INSERT INTO surat_domisili (nomor_surat, jenis_kelamin, agama, pekerjaan) VALUES (?, ?, ?, ?)";
+        String insertKematianSQL = "INSERT INTO surat_kematian (nomor_surat, jenis_kelamin, pekerjaan, status, agama, hari_tanggal_meninggal, jam_meninggal, sebab_kematian, yang_menerangkan_kematian, tempat_kematian) " +
+                                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL);
-            PreparedStatement stmt2 = connection.prepareStatement(insertDomisiliSQL)
+            PreparedStatement stmt2 = connection.prepareStatement(insertKematianSQL)
         ) {
             connection.setAutoCommit(false);
 
@@ -36,11 +37,17 @@ public class suratdomisiliDAO {
             stmt1.setString(9, surat.getJenisSurat());
             stmt1.executeUpdate();
 
-            // Tabel khusus domisili
+            // Tabel surat_kematian (khusus)
             stmt2.setString(1, surat.getNomorSurat());
             stmt2.setString(2, surat.getJenisKelamin());
-            stmt2.setString(3, surat.getAgama());
-            stmt2.setString(4, surat.getPekerjaan());
+            stmt2.setString(3, surat.getPekerjaan());
+            stmt2.setString(4, surat.getStatus());
+            stmt2.setString(5, surat.getAgama());
+            stmt2.setString(6, surat.getHariTanggalMeninggal());
+            stmt2.setString(7, surat.getJamMeninggal());
+            stmt2.setString(8, surat.getSebabKematian());
+            stmt2.setString(9, surat.getYangMenerangkanKematian());
+            stmt2.setString(10, surat.getTempatKematian());
             stmt2.executeUpdate();
 
             connection.commit();
@@ -52,22 +59,28 @@ public class suratdomisiliDAO {
         }
     }
 
-    public suratdomisili getByNomorSurat(String nomorSurat) throws SQLException {
-        String sql = "SELECT s.*, d.jenis_kelamin, d.agama, d.pekerjaan " +
-                     "FROM surat s JOIN surat_domisili d ON s.nomor_surat = d.nomor_surat " +
+    public suratkematian getByNomorSurat(String nomorSurat) throws SQLException {
+        String sql = "SELECT s.*, k.* " +
+                     "FROM surat s JOIN surat_kematian k ON s.nomor_surat = k.nomor_surat " +
                      "WHERE s.nomor_surat = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nomorSurat);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    suratdomisili surat = new suratdomisili(
+                    suratkematian surat = new suratkematian(
                         rs.getString("nama"),
-                        rs.getString("nik"),
                         rs.getString("tempat_tanggal_lahir"),
+                        rs.getString("nik"),
+                        rs.getString("alamat"),
                         rs.getString("jenis_kelamin"),
-                        rs.getString("agama"),
                         rs.getString("pekerjaan"),
-                        rs.getString("alamat")
+                        rs.getString("status"),
+                        rs.getString("agama"),
+                        rs.getString("hari_tanggal_meninggal"),
+                        rs.getString("jam_meninggal"),
+                        rs.getString("sebab_kematian"),
+                        rs.getString("yang_menerangkan_kematian"),
+                        rs.getString("tempat_kematian")
                     );
                     surat.setNomorSurat(rs.getString("nomor_surat"));
                     return surat;
@@ -78,12 +91,12 @@ public class suratdomisiliDAO {
     }
 
     public void delete(String nomorSurat) throws SQLException {
-        String sqlDeleteDomisili = "DELETE FROM surat_domisili WHERE nomor_surat = ?";
-        String sqlDeleteSurat = "DELETE FROM surat WHERE nomor_surat = ?";
+        String deleteKematianSQL = "DELETE FROM surat_kematian WHERE nomor_surat = ?";
+        String deleteSuratSQL = "DELETE FROM surat WHERE nomor_surat = ?";
 
         try (
-            PreparedStatement stmt1 = connection.prepareStatement(sqlDeleteDomisili);
-            PreparedStatement stmt2 = connection.prepareStatement(sqlDeleteSurat)
+            PreparedStatement stmt1 = connection.prepareStatement(deleteKematianSQL);
+            PreparedStatement stmt2 = connection.prepareStatement(deleteSuratSQL)
         ) {
             connection.setAutoCommit(false);
 
@@ -102,22 +115,28 @@ public class suratdomisiliDAO {
         }
     }
 
-    public List<suratdomisili> getAll() throws SQLException {
-        List<suratdomisili> list = new ArrayList<>();
-        String sql = "SELECT s.*, d.jenis_kelamin, d.agama, d.pekerjaan " +
-                     "FROM surat s JOIN surat_domisili d ON s.nomor_surat = d.nomor_surat " +
-                     "WHERE s.jenis_surat = 'Surat Keterangan Domisili'";
+    public List<suratkematian> getAll() throws SQLException {
+        List<suratkematian> list = new ArrayList<>();
+        String sql = "SELECT s.*, k.* " +
+                     "FROM surat s JOIN surat_kematian k ON s.nomor_surat = k.nomor_surat " +
+                     "WHERE s.jenis_surat = 'Surat Keterangan Kematian'";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                suratdomisili surat = new suratdomisili(
+                suratkematian surat = new suratkematian(
                     rs.getString("nama"),
-                    rs.getString("nik"),
                     rs.getString("tempat_tanggal_lahir"),
+                    rs.getString("nik"),
+                    rs.getString("alamat"),
                     rs.getString("jenis_kelamin"),
-                    rs.getString("agama"),
                     rs.getString("pekerjaan"),
-                    rs.getString("alamat")
+                    rs.getString("status"),
+                    rs.getString("agama"),
+                    rs.getString("hari_tanggal_meninggal"),
+                    rs.getString("jam_meninggal"),
+                    rs.getString("sebab_kematian"),
+                    rs.getString("yang_menerangkan_kematian"),
+                    rs.getString("tempat_kematian")
                 );
                 surat.setNomorSurat(rs.getString("nomor_surat"));
                 list.add(surat);

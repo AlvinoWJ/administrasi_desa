@@ -1,7 +1,5 @@
 package administrasi_mandiri.models;
 
-import java.time.LocalDate;
-
 public class suratmenikah extends surat {
     private String jenisKelamin;
     private String agama;
@@ -11,11 +9,11 @@ public class suratmenikah extends surat {
     private String namaPasangan;
     private String kewarganegaraanPasangan;
 
-public suratmenikah(String nomorSurat, String nama, String tempatTanggalLahir, String nik,
-                                   String alamat, LocalDate tanggalPengajuan, String jenisKelamin, String agama,
+public suratmenikah(String nama, String tempatTanggalLahir, String nik,
+                                   String alamat, String jenisKelamin, String agama,
                                    String status, String pekerjaan, String kewarganegaraan,
                                    String namaPasangan, String kewarganegaraanPasangan) {
-        super(nomorSurat, nama, tempatTanggalLahir, nik, alamat, tanggalPengajuan);
+        super(nama, tempatTanggalLahir, nik, alamat);
         this.jenisKelamin = jenisKelamin;
         this.agama = agama;
         this.status = status;
