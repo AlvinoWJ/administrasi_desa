@@ -32,6 +32,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         btnDashboard = new javax.swing.JButton();
         btnDaftarPengajuan = new javax.swing.JButton();
@@ -50,15 +51,25 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(250, 1080));
 
+        jPanel3.setBackground(new java.awt.Color(51, 0, 153));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Naufal Charis\\Downloads\\logo (3).png")); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 106, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jButton2.setBackground(new java.awt.Color(51, 0, 153));
@@ -137,9 +148,9 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(48, 48, 48)
                 .addComponent(jButton2)
                 .addGap(12, 12, 12)
                 .addComponent(btnDashboard)
@@ -367,6 +378,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
     private javax.swing.JButton btnVerifikasi;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -30,6 +30,7 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnKembali = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -68,15 +69,21 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SISTEM PELAYANAN ADMINISTRASI");
 
+        jPanel3.setBackground(new java.awt.Color(51, 0, 153));
+
+        jLabel15.setBackground(new java.awt.Color(51, 0, 153));
+        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\Naufal Charis\\Downloads\\logo (2).png")); // NOI18N
+        jLabel15.setText("jLabel15");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 69, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -101,12 +108,12 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 478, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1104, Short.MAX_VALUE)
                         .addGap(206, 206, 206))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1661, Short.MAX_VALUE)
+                        .addGap(179, 179, 179)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1603, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -361,6 +368,7 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
