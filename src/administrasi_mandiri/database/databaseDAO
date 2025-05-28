@@ -1,0 +1,81 @@
+CREATE DATABASE administrasi_mandiri;
+
+USE administrasi_mandiri;
+
+CREATE TABLE surat (
+    nomor_surat VARCHAR(50) PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    nik VARCHAR(20) NOT NULL,
+    tempat_tanggal_lahir VARCHAR(50) NOT NULL,
+    alamat VARCHAR(255) NOT NULL,
+    desa VARCHAR(100) NOT NULL,
+    kecamatan VARCHAR(100) NOT NULL,
+    kabupaten VARCHAR(100) NOT NULL,
+    jenis_surat VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE surat_domisili (
+    nomor_surat VARCHAR(50) PRIMARY KEY,
+    jenis_kelamin VARCHAR(20) NOT NULL,
+    agama VARCHAR(50) NOT NULL,
+    pekerjaan VARCHAR(100) NOT NULL,
+    FOREIGN KEY (nomor_surat) REFERENCES surat(nomor_surat) ON DELETE CASCADE
+);
+
+CREATE TABLE surat_kematian (
+    nomor_surat VARCHAR(50) PRIMARY KEY,
+    jenis_kelamin VARCHAR(20) NOT NULL,
+    pekerjaan VARCHAR(100) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    agama VARCHAR(50) NOT NULL,
+    hari_tanggal_meninggal VARCHAR(50) NOT NULL,
+    jam_meninggal VARCHAR(20) NOT NULL,
+    sebab_kematian VARCHAR(255) NOT NULL,
+    yang_menerangkan_kematian VARCHAR(100) NOT NULL,
+    tempat_kematian VARCHAR(100) NOT NULL,
+    FOREIGN KEY (nomor_surat) REFERENCES surat(nomor_surat) ON DELETE CASCADE
+);
+
+CREATE TABLE surat_menikah (
+    nomor_surat VARCHAR(50) PRIMARY KEY,
+    jenis_kelamin VARCHAR(20) NOT NULL,
+    agama VARCHAR(50) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    pekerjaan VARCHAR(100) NOT NULL,
+    kewarganegaraan VARCHAR(50) NOT NULL,
+    nama_pasangan VARCHAR(100) NOT NULL,
+    kewarganegaraan_pasangan VARCHAR(50) NOT NULL,
+    FOREIGN KEY (nomor_surat) REFERENCES surat(nomor_surat) ON DELETE CASCADE
+);
+
+CREATE TABLE surat_usaha (
+    nomor_surat VARCHAR(50) PRIMARY KEY,
+    jenis_kelamin VARCHAR(20) NOT NULL,
+    agama VARCHAR(50) NOT NULL,
+    status_perkawinan VARCHAR(50) NOT NULL,
+    pekerjaan VARCHAR(100) NOT NULL,
+    nama_usaha VARCHAR(100) NOT NULL,
+    jenis_usaha VARCHAR(100) NOT NULL,
+    alamat_usaha VARCHAR(255) NOT NULL,
+    FOREIGN KEY (nomor_surat) REFERENCES surat(nomor_surat) ON DELETE CASCADE
+);
+
+CREATE TABLE admin (
+    id_admin INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    nama_lengkap VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    role ENUM('superadmin', 'admin') DEFAULT 'admin',
+    status ENUM('aktif', 'nonaktif') DEFAULT 'aktif',
+    tanggal_dibuat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    terakhir_login TIMESTAMP NULL DEFAULT NULL
+);
+
+CREATE TABLE log_aktivitas_admin (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin INT NOT NULL,
+    aktivitas VARCHAR(255) NOT NULL,
+    waktu TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
+);
