@@ -7,7 +7,6 @@ package administrasi_mandiri.view;
 import administrasi_masyarakat.view.FormLogin;
 import administrasi_masyarakat.view.daftar_pengajuan;
 import administrasi_masyarakat.view.riwayat_pembuatan;
-import administrasi_masyarakat.view.verifikasi_admin;
 
 /**
  *
