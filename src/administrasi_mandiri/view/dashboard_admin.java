@@ -33,11 +33,13 @@ public class dashboard_admin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         btnDashboard = new javax.swing.JButton();
         btnDaftarPengajuan = new javax.swing.JButton();
         btnVerifikasi = new javax.swing.JButton();
         btnRiwayat = new javax.swing.JButton();
+        btnadmin = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -57,17 +59,26 @@ public class dashboard_admin extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 100));
 
+        jPanel3.setBackground(new java.awt.Color(51, 0, 153));
         jPanel3.setPreferredSize(new java.awt.Dimension(188, 106));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Naufal Charis\\Downloads\\logo (3).png")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(40, 40, 40))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 106, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
         );
 
         btnHome.setBackground(new java.awt.Color(51, 0, 153));
@@ -125,6 +136,17 @@ public class dashboard_admin extends javax.swing.JFrame {
             }
         });
 
+        btnadmin.setBackground(new java.awt.Color(51, 0, 153));
+        btnadmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnadmin.setForeground(new java.awt.Color(255, 255, 255));
+        btnadmin.setText("Daftar Admin");
+        btnadmin.setBorderPainted(false);
+        btnadmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnadminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -139,7 +161,8 @@ public class dashboard_admin extends javax.swing.JFrame {
                             .addComponent(btnDashboard)
                             .addComponent(btnDaftarPengajuan)
                             .addComponent(btnVerifikasi)
-                            .addComponent(btnRiwayat))
+                            .addComponent(btnRiwayat)
+                            .addComponent(btnadmin))
                         .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -158,7 +181,9 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addComponent(btnVerifikasi)
                 .addGap(12, 12, 12)
                 .addComponent(btnRiwayat)
-                .addContainerGap(782, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(btnadmin)
+                .addContainerGap(743, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
@@ -345,6 +370,11 @@ public class dashboard_admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
+    private void btnadminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadminActionPerformed
+        daftar_admin pindah = new daftar_admin();
+        pindah.setVisible(true);
+    }//GEN-LAST:event_btnadminActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,9 +417,11 @@ public class dashboard_admin extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnVerifikasi;
+    private javax.swing.JButton btnadmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

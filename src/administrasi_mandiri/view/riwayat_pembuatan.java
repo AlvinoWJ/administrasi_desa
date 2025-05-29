@@ -32,6 +32,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         btnDashboard = new javax.swing.JButton();
         btnDaftarPengajuan = new javax.swing.JButton();
@@ -50,15 +51,25 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(250, 1080));
 
+        jPanel3.setBackground(new java.awt.Color(51, 0, 153));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Naufal Charis\\Downloads\\logo (3).png")); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 106, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(51, 0, 153));
@@ -416,6 +427,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
