@@ -3,18 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/daftar_pengajuan.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratkematian.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/suratmenikahDAO.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratmenikah.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/verifikasi_admin.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/LoginAdmin.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/dashboard_admin.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/ViewMainUser.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratdomisili.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/database</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/suratkematianDAO.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/daftar_pengajuan.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/ViewSuratDomisili.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/LoginAdmin.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/suratdomisiliDAO.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/suratusahaDAO.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/surat.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/FormLogin.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/daftar_admin.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/models/suratusaha.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/database/koneksidatabase.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/administrasi_mandiri/src/administrasi_mandiri/view/riwayat_pembuatan.java</file>
-=======
-            <file>file:/D:/administrasi_desa/src/administrasi_mandiri/view/FormLogin.java</file>
-            <file>file:/D:/administrasi_desa/src/administrasi_mandiri/view/LoginAdmin.java</file>
-            <file>file:/D:/administrasi_desa/src/administrasi_mandiri/view/dashboard_admin.java</file>
->>>>>>> 5e7b43294347f44e1639d68eb08f374aa4b7a78d
         </group>
     </open-files>
 </project-private>

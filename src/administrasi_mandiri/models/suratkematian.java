@@ -33,8 +33,8 @@ public class suratkematian extends surat {
     public String getPekerjaan() { return Pekerjaan; }
     public void setPekerjaan(String Pekerjaan) { this.Pekerjaan = Pekerjaan; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getstatus() { return status; }
+    public void setstatus(String status) { this.status = status; }
 
     public String getAgama() { return agama; }
     public void setAgama(String agama) { this.agama = agama; }

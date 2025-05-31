@@ -16,27 +16,21 @@ public class suratusahaDAO {
         String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, desa, kecamatan, kabupaten, jenis_surat) " +
                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String insertUsahaSQL = "INSERT INTO surat_usaha (nomor_surat, jenis_kelamin, agama, status_perkawinan, pekerjaan, nama_usaha, jenis_usaha, alamat_usaha) " +
-                               "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL);
             PreparedStatement stmt2 = connection.prepareStatement(insertUsahaSQL)
         ) {
             connection.setAutoCommit(false);
-
-            // Insert ke tabel surat (umum)
             stmt1.setString(1, surat.getNomorSurat());
             stmt1.setString(2, surat.getNama());
             stmt1.setString(3, surat.getNik());
             stmt1.setString(4, surat.getTempatTanggalLahir());
             stmt1.setString(5, surat.getAlamat());
-            stmt1.setString(6, surat.getDesa());
-            stmt1.setString(7, surat.getKecamatan());
-            stmt1.setString(8, surat.getKabupaten());
-            stmt1.setString(9, surat.getJenisSurat());
+            stmt1.setString(6, surat.getJenisSurat());
             stmt1.executeUpdate();
 
-            // Insert ke tabel surat_usaha (khusus)
             stmt2.setString(1, surat.getNomorSurat());
             stmt2.setString(2, surat.getJenisKelamin());
             stmt2.setString(3, surat.getAgama());
@@ -56,80 +50,24 @@ public class suratusahaDAO {
         }
     }
 
-    public suratusaha getByNomorSurat(String nomorSurat) throws SQLException {
-        String sql = "SELECT s.*, u.* FROM surat s " +
-                     "JOIN surat_usaha u ON s.nomor_surat = u.nomor_surat " +
-                     "WHERE s.nomor_surat = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, nomorSurat);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    suratusaha surat = new suratusaha(
-                        rs.getString("nama"),
-                        rs.getString("tempat_tanggal_lahir"),
-                        rs.getString("nik"),
-                        rs.getString("alamat"),
-                        rs.getString("jenis_kelamin"),
-                        rs.getString("agama"),
-                        rs.getString("status_perkawinan"),
-                        rs.getString("pekerjaan"),
-                        rs.getString("nama_usaha"),
-                        rs.getString("jenis_usaha"),
-                        rs.getString("alamat_usaha")
-                    );
-                    surat.setNomorSurat(rs.getString("nomor_surat"));
-                    return surat;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void delete(String nomorSurat) throws SQLException {
-        String deleteUsahaSQL = "DELETE FROM surat_usaha WHERE nomor_surat = ?";
-        String deleteSuratSQL = "DELETE FROM surat WHERE nomor_surat = ?";
-
-        try (
-            PreparedStatement stmt1 = connection.prepareStatement(deleteUsahaSQL);
-            PreparedStatement stmt2 = connection.prepareStatement(deleteSuratSQL)
-        ) {
-            connection.setAutoCommit(false);
-
-            stmt1.setString(1, nomorSurat);
-            stmt1.executeUpdate();
-
-            stmt2.setString(1, nomorSurat);
-            stmt2.executeUpdate();
-
-            connection.commit();
-        } catch (SQLException e) {
-            connection.rollback();
-            throw e;
-        } finally {
-            connection.setAutoCommit(true);
-        }
-    }
-
     public List<suratusaha> getAll() throws SQLException {
         List<suratusaha> list = new ArrayList<>();
-        String sql = "SELECT s.*, u.* FROM surat s " +
-                     "JOIN surat_usaha u ON s.nomor_surat = u.nomor_surat " +
-                     "WHERE s.jenis_surat = 'Surat Keterangan Usaha'";
+        String sql = "SELECT s.*, u.* FROM surat s JOIN surat_usaha u ON s.nomor_surat = u.nomor_surat WHERE s.jenis_surat = 'Surat Keterangan Usaha'";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 suratusaha surat = new suratusaha(
                     rs.getString("nama"),
-                    rs.getString("tempat_tanggal_lahir"),
                     rs.getString("nik"),
-                    rs.getString("alamat"),
+                    rs.getString("tempat_tanggal_lahir"),
                     rs.getString("jenis_kelamin"),
                     rs.getString("agama"),
                     rs.getString("status_perkawinan"),
                     rs.getString("pekerjaan"),
                     rs.getString("nama_usaha"),
                     rs.getString("jenis_usaha"),
-                    rs.getString("alamat_usaha")
+                    rs.getString("alamat_usaha"),
+                    rs.getString("alamat")
                 );
                 surat.setNomorSurat(rs.getString("nomor_surat"));
                 list.add(surat);
