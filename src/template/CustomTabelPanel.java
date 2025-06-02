@@ -49,14 +49,15 @@ public class CustomTabelPanel extends JPanel {
 
         // Tabel
         DefaultTableModel model = new DefaultTableModel(
-                new Object[][]{
-                        {"1", "Budi", "Jakarta"},
-                        {"2", "Siti", "Surabaya"},
-                        {"3", "Joko", "Bandung"},
-                        {"4", "Ani", "Malang"},
-                },
-                new Object[]{"ID", "Nama", "Kota"}
+        new Object[][] {
+        { "1", "Surat Kematian", "111", "Budi", "Malang, 01-06-2005", "02-06-2025", "" },
+        { "2", "Surat Usaha", "222", "Charis", "Sidoarjo, 08-06-2005", "15-06-2025", "" },
+        { "3", "Surat Domisili", "333", "Ani", "Malang, 02-06-2003", "16-06-2025", "" },
+        { "4", "Surat Menikah", "444", "Tasya", "Malang, 03-06-2002", "21-06-2025", "" }
+        },
+            new Object[] { "No Surat", "Jenis Surat", "NIK", "Nama", "Tempat tgl Lahir", "Tgl Pengajuan", "Dokumen" }
         );
+
         table = new JTable(model);
         table.setFont(new Font("SansSerif", Font.PLAIN, 16));
         table.setRowHeight(24);

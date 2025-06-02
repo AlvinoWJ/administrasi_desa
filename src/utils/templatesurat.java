@@ -21,10 +21,10 @@ public class templatesurat {
                              
                              Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.
                              """,
-            surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
+            
             surat.getNama(), surat.getJenisKelamin(), surat.getTempatTanggalLahir(),
-            surat.getNik(), surat.getPekerjaan(), surat.getAlamat(),
-            surat.getDesa()
+            surat.getNik(), surat.getPekerjaan(), surat.getAlamat()
+            
         );
     }
 
@@ -52,9 +52,9 @@ public class templatesurat {
                              Yang Menerangkan  : %s
                              
                              Demikian surat ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.""",
-            surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
+            
             surat.getNama(), surat.getJenisKelamin(), surat.getTempatTanggalLahir(),
-            surat.getNik(), surat.getAgama(), surat.getStatus(), surat.getPekerjaan(),
+            surat.getNik(), surat.getAgama(), surat.getPekerjaan(),
             surat.getAlamat(), surat.getHariTanggalMeninggal(), surat.getJamMeninggal(),
             surat.getTempatKematian(), surat.getSebabKematian(), surat.getYangMenerangkanKematian()
         );
@@ -83,7 +83,7 @@ public class templatesurat {
                          
                             Demikian surat keterangan ini kami buat dengan sebenar-benarnya dan untuk
                          dipergunakan sebagaimana mestinya.""",
-        surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
+       
         surat.getNama(), surat.getTempatTanggalLahir(), surat.getNik(), surat.getJenisKelamin(),
         surat.getAgama(), surat.getStatusPerkawinan(), surat.getPekerjaan(), surat.getAlamat(),
         surat.getNamaUsaha(), surat.getJenisUsaha(), surat.getAlamatUsaha()
@@ -115,13 +115,10 @@ public class templatesurat {
                          Demikianlah Surat Keterangan ini kami buat dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya.
                          """,
         surat.getNomorSurat(),
-        surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
+        
         surat.getNama(), surat.getJenisKelamin(), surat.getTempatTanggalLahir(),
         surat.getAgama(), surat.getStatus(), surat.getPekerjaan(), surat.getKewarganegaraan(),
-        surat.getAlamat(),
-        surat.getDesa(), surat.getKecamatan(), surat.getKabupaten(),
-        surat.getNamaPasangan(), surat.getKewarganegaraanPasangan(),
-        surat.getDesa(), surat.getDesa()
+        surat.getAlamat(), surat.getNamaPasangan(), surat.getKewarganegaraanPasangan()
         );
     }
 }
