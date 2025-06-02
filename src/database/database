@@ -1,0 +1,76 @@
+-- Gunakan database
+CREATE DATABASE IF NOT EXISTS administrasi_mandiri;
+USE administrasi_mandiri;
+
+-- Tabel admin
+CREATE TABLE admin (
+    id_admin INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabel surat (superclass)
+CREATE TABLE surat (
+    id_surat INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    nik VARCHAR(20) NOT NULL,
+    tempat_tanggal_lahir VARCHAR(100),
+    alamat TEXT,
+    jenis_surat ENUM('Surat Keterangan Domisili', 'Surat Keterangan Kematian', 'Surat Keterangan Menikah', 'Surat Keterangan Usaha') NOT NULL,
+    tanggal_buat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    statusSurat ENUM('Diproses', 'Disetujui', 'Ditolak') DEFAULT 'Diproses',
+    nomor_surat VARCHAR(100) UNIQUE NOT NULL,
+    id_admin INT,
+    FOREIGN KEY (id_admin) REFERENCES admin(id_admin)
+);
+
+-- Surat Domisili
+CREATE TABLE surat_domisili (
+    id_surat INT PRIMARY KEY,
+    jenis_kelamin VARCHAR(20),
+    pekerjaan VARCHAR(100),
+    agama VARCHAR(50),
+    FOREIGN KEY (id_surat) REFERENCES surat(id_surat) ON DELETE CASCADE
+);
+
+-- Surat Kematian
+CREATE TABLE surat_kematian (
+    id_surat INT PRIMARY KEY,
+    jenis_kelamin VARCHAR(20),
+    pekerjaan VARCHAR(100),
+    status VARCHAR(50),
+    agama VARCHAR(50),
+    hari_tanggal_meninggal VARCHAR(50),
+    jam_meninggal VARCHAR(10),
+    sebab_kematian TEXT,
+    yang_menerangkan_kematian VARCHAR(100),
+    tempat_kematian VARCHAR(100),
+    FOREIGN KEY (id_surat) REFERENCES surat(id_surat) ON DELETE CASCADE
+);
+
+-- Surat Usaha
+CREATE TABLE surat_usaha (
+    id_surat INT PRIMARY KEY,
+    jenis_kelamin VARCHAR(20),
+    agama VARCHAR(30),
+    status_perkawinan VARCHAR(30),
+    pekerjaan VARCHAR(50),
+    nama_usaha VARCHAR(100),
+    jenis_usaha VARCHAR(100),
+    alamat_usaha TEXT,
+    FOREIGN KEY (id_surat) REFERENCES surat(id_surat) ON DELETE CASCADE
+);
+
+-- Surat Menikah
+CREATE TABLE surat_menikah (
+    id_surat INT PRIMARY KEY,
+    jenis_kelamin VARCHAR(20),
+    agama VARCHAR(50),
+    status VARCHAR(50),
+    pekerjaan VARCHAR(100),
+    kewarganegaraan VARCHAR(50),
+    nama_pasangan VARCHAR(100),
+    kewarganegaraan_pasangan VARCHAR(50),
+    FOREIGN KEY (id_surat) REFERENCES surat(id_surat) ON DELETE CASCADE
+);

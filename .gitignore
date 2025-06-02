@@ -1,0 +1,22 @@
+# ========================
+# Git Ignore untuk Proyek Java (NetBeans)
+# ========================
+
+# Folder hasil build (jangan dimasukkan ke GitHub)
+build/
+dist/
+
+# File class hasil kompilasi
+*.class
+
+# Log & file sementara
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Konfigurasi pribadi NetBeans (jangan diikutkan)
+nbproject/private/
+
+
