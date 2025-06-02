@@ -11,7 +11,7 @@ package View;
 public class riwayat_pembuatan extends javax.swing.JFrame {
 
     /**
-     * Creates new form riwayat_pembuatan
+     * Creates new form daftar_pengajuan
      */
     public riwayat_pembuatan() {
         initComponents();
@@ -29,19 +29,184 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        roundedPanel1 = new template.RoundedPanel();
+        roundedButton1 = new template.RoundedButton();
+        roundedButton2 = new template.RoundedButton();
+        daftar_pengajuan = new template.RoundedButton();
+        verifikasi = new template.RoundedButton();
+        roundedButton5 = new template.RoundedButton();
+        roundedButton6 = new template.RoundedButton();
+        roundedPanel2 = new template.RoundedPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        customTabelPanel2 = new template.CustomTabelPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        roundedPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        roundedPanel1.setRoundBottomRight(30);
+        roundedPanel1.setRoundTopRight(30);
+
+        roundedButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        roundedButton1.setForeground(new java.awt.Color(51, 153, 255));
+        roundedButton1.setText("HOME");
+        roundedButton1.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        roundedButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton1ActionPerformed(evt);
+            }
+        });
+
+        roundedButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        roundedButton2.setForeground(new java.awt.Color(51, 153, 255));
+        roundedButton2.setText("DASHBOARD");
+        roundedButton2.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        roundedButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton2ActionPerformed(evt);
+            }
+        });
+
+        daftar_pengajuan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        daftar_pengajuan.setForeground(new java.awt.Color(51, 153, 255));
+        daftar_pengajuan.setText("DAFTAR PENGAJUAN");
+        daftar_pengajuan.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        daftar_pengajuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                daftar_pengajuanActionPerformed(evt);
+            }
+        });
+
+        verifikasi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        verifikasi.setForeground(new java.awt.Color(51, 153, 255));
+        verifikasi.setText("VERIFIKASI");
+        verifikasi.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        verifikasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verifikasiActionPerformed(evt);
+            }
+        });
+
+        roundedButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        roundedButton5.setForeground(new java.awt.Color(51, 153, 255));
+        roundedButton5.setText("RIWAYAT PEMBUATAN");
+        roundedButton5.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        roundedButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton5ActionPerformed(evt);
+            }
+        });
+
+        roundedButton6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        roundedButton6.setForeground(new java.awt.Color(51, 153, 255));
+        roundedButton6.setText("DAFTAR ADMIN");
+        roundedButton6.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        roundedButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
+        roundedPanel1.setLayout(roundedPanel1Layout);
+        roundedPanel1Layout.setHorizontalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(roundedButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roundedButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(daftar_pengajuan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verifikasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roundedButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roundedButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+        roundedPanel1Layout.setVerticalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
+                .addContainerGap(227, Short.MAX_VALUE)
+                .addComponent(roundedButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(roundedButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(daftar_pengajuan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(verifikasi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(roundedButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(roundedButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(223, 223, 223))
+        );
+
+        roundedPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        roundedPanel2.setRoundBottomLeft(20);
+        roundedPanel2.setRoundBottomRight(20);
+        roundedPanel2.setRoundTopLeft(20);
+        roundedPanel2.setRoundTopRight(20);
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Riwayat Pembuatan Surat");
+
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("X");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1540, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -57,6 +222,46 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void roundedButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton6ActionPerformed
+        daftar_admin pindah = new daftar_admin();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_roundedButton6ActionPerformed
+
+    private void roundedButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton5ActionPerformed
+        riwayat_pembuatan pindah = new riwayat_pembuatan();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_roundedButton5ActionPerformed
+
+    private void verifikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifikasiActionPerformed
+        verifikasi_admin pindah = new verifikasi_admin();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_verifikasiActionPerformed
+
+    private void daftar_pengajuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftar_pengajuanActionPerformed
+        riwayat_pembuatan pindah = new riwayat_pembuatan();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_daftar_pengajuanActionPerformed
+
+    private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
+        dashboard_admin pindah = new dashboard_admin();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_roundedButton2ActionPerformed
+
+    private void roundedButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton1ActionPerformed
+        FormLogin pindah = new FormLogin();
+        pindah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_roundedButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,6 +289,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(riwayat_pembuatan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -94,6 +300,17 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private template.CustomTabelPanel customTabelPanel2;
+    private template.RoundedButton daftar_pengajuan;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private template.RoundedButton roundedButton1;
+    private template.RoundedButton roundedButton2;
+    private template.RoundedButton roundedButton5;
+    private template.RoundedButton roundedButton6;
+    private template.RoundedPanel roundedPanel1;
+    private template.RoundedPanel roundedPanel2;
+    private template.RoundedButton verifikasi;
     // End of variables declaration//GEN-END:variables
 }
