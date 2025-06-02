@@ -34,7 +34,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         roundedButton2 = new template.RoundedButton();
         daftar_pengajuan = new template.RoundedButton();
         verifikasi = new template.RoundedButton();
-        roundedButton5 = new template.RoundedButton();
+        riwayat = new template.RoundedButton();
         roundedButton6 = new template.RoundedButton();
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -90,13 +90,13 @@ public class daftar_pengajuan extends javax.swing.JFrame {
             }
         });
 
-        roundedButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        roundedButton5.setForeground(new java.awt.Color(51, 153, 255));
-        roundedButton5.setText("RIWAYAT PEMBUATAN");
-        roundedButton5.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
-        roundedButton5.addActionListener(new java.awt.event.ActionListener() {
+        riwayat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        riwayat.setForeground(new java.awt.Color(51, 153, 255));
+        riwayat.setText("RIWAYAT PEMBUATAN");
+        riwayat.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
+        riwayat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedButton5ActionPerformed(evt);
+                riwayatActionPerformed(evt);
             }
         });
 
@@ -121,7 +121,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
                     .addComponent(roundedButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(daftar_pengajuan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(verifikasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(roundedButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(riwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roundedButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
@@ -137,7 +137,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(verifikasi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(roundedButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(riwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(roundedButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(223, 223, 223))
@@ -233,11 +233,11 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_roundedButton6ActionPerformed
 
-    private void roundedButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton5ActionPerformed
+    private void riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatActionPerformed
         riwayat_pembuatan pindah = new riwayat_pembuatan();
         pindah.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_roundedButton5ActionPerformed
+    }//GEN-LAST:event_riwayatActionPerformed
 
     private void verifikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifikasiActionPerformed
         verifikasi_admin pindah = new verifikasi_admin();
@@ -304,9 +304,9 @@ public class daftar_pengajuan extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private template.RoundedButton riwayat;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
-    private template.RoundedButton roundedButton5;
     private template.RoundedButton roundedButton6;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;

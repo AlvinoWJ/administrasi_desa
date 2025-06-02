@@ -96,7 +96,7 @@
                           <Component id="roundedButton2" alignment="2" max="32767" attributes="0"/>
                           <Component id="daftar_pengajuan" alignment="2" max="32767" attributes="0"/>
                           <Component id="verifikasi" alignment="2" max="32767" attributes="0"/>
-                          <Component id="roundedButton5" alignment="2" min="-2" pref="192" max="-2" attributes="0"/>
+                          <Component id="riwayat" alignment="2" min="-2" pref="192" max="-2" attributes="0"/>
                           <Component id="roundedButton6" alignment="2" min="-2" pref="192" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -115,7 +115,7 @@
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="verifikasi" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="roundedButton5" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="riwayat" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="roundedButton6" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
@@ -208,7 +208,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verifikasiActionPerformed"/>
               </Events>
             </Component>
-            <Component class="template.RoundedButton" name="roundedButton5">
+            <Component class="template.RoundedButton" name="riwayat">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -226,7 +226,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundedButton5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="riwayatActionPerformed"/>
               </Events>
             </Component>
             <Component class="template.RoundedButton" name="roundedButton6">

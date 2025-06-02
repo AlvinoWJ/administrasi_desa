@@ -246,7 +246,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     }//GEN-LAST:event_verifikasiActionPerformed
 
     private void daftar_pengajuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftar_pengajuanActionPerformed
-        riwayat_pembuatan pindah = new riwayat_pembuatan();
+        daftar_pengajuan pindah = new daftar_pengajuan();
         pindah.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_daftar_pengajuanActionPerformed
