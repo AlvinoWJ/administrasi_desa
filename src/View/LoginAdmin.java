@@ -4,6 +4,10 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
+
+
 /**
  *
  * @author hp
@@ -40,8 +44,8 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        roundedTextField1 = new template.RoundedTextField();
-        roundedTextField2 = new template.RoundedTextField();
+        txtpassword = new template.RoundedTextField();
+        txtusername = new template.RoundedTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,25 +143,25 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
 
-        roundedTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roundedTextField1.setRoundBottomLeft(10);
-        roundedTextField1.setRoundBottomRight(10);
-        roundedTextField1.setRoundTopLeft(10);
-        roundedTextField1.setRoundTopRight(10);
-        roundedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtpassword.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtpassword.setRoundBottomLeft(10);
+        txtpassword.setRoundBottomRight(10);
+        txtpassword.setRoundTopLeft(10);
+        txtpassword.setRoundTopRight(10);
+        txtpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedTextField1ActionPerformed(evt);
+                txtpasswordActionPerformed(evt);
             }
         });
 
-        roundedTextField2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roundedTextField2.setRoundBottomLeft(10);
-        roundedTextField2.setRoundBottomRight(10);
-        roundedTextField2.setRoundTopLeft(10);
-        roundedTextField2.setRoundTopRight(10);
-        roundedTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtusername.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtusername.setRoundBottomLeft(10);
+        txtusername.setRoundBottomRight(10);
+        txtusername.setRoundTopLeft(10);
+        txtusername.setRoundTopRight(10);
+        txtusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedTextField2ActionPerformed(evt);
+                txtusernameActionPerformed(evt);
             }
         });
 
@@ -177,11 +181,11 @@ public class LoginAdmin extends javax.swing.JFrame {
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(roundedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(roundedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -192,11 +196,11 @@ public class LoginAdmin extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(roundedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(roundedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(30, 30, 30))
@@ -262,18 +266,48 @@ public class LoginAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void roundedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedTextField1ActionPerformed
+    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roundedTextField1ActionPerformed
+    }//GEN-LAST:event_txtpasswordActionPerformed
 
-    private void roundedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedTextField2ActionPerformed
+    private void txtusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roundedTextField2ActionPerformed
+    }//GEN-LAST:event_txtusernameActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        dashboard_admin menu = new dashboard_admin();
-        menu.setVisible(true);
-        this.dispose();
+    try {
+        // Ambil input dari field
+        String username = txtusername.getText(); // Sesuaikan dengan nama variabel
+        String password = txtpassword.getText(); // Sesuaikan dengan nama variabel
+
+        // Koneksi ke database
+        String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        java.sql.Connection conn = database.koneksidatabase.getConnection();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, username);
+        pst.setString(2, password);
+
+        java.sql.ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            // Jika login berhasil
+            JOptionPane.showMessageDialog(this, "Login berhasil!");
+            this.setVisible(false);
+            new dashboard_admin().setVisible(true); // Pindah ke halaman dashboard
+        } else {
+            // Jika gagal login
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+        }
+
+        conn.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
+    }
+
+        
+        
+        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -325,7 +359,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private template.RoundedPanel roundedPanel1;
-    private template.RoundedTextField roundedTextField1;
-    private template.RoundedTextField roundedTextField2;
+    private template.RoundedTextField txtpassword;
+    private template.RoundedTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }
