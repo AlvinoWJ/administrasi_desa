@@ -56,7 +56,17 @@ public class CustomTabelPanel extends JPanel {
         { "4", "Surat Menikah", "444", "Tasya", "Malang, 03-06-2002", "21-06-2025", "" }
         },
             new Object[] { "No Surat", "Jenis Surat", "NIK", "Nama", "Tempat tgl Lahir", "Tgl Pengajuan", "Dokumen" }
-        );
+        ){
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+            
 
         table = new JTable(model);
         table.setFont(new Font("SansSerif", Font.PLAIN, 16));
