@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class koneksidatabase {
-    private static final String URL = "jdbc:mysql://localhost:3306/administrasi_mandiri";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-
     public static Connection getConnection() throws SQLException {
+        String URL = "jdbc:mysql://localhost:3306/administrasi_mandiri";
+        String USER = "root";
+        String PASSWORD = "";
+
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

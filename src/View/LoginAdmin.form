@@ -217,12 +217,12 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel5" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="password" min="-2" pref="343" max="-2" attributes="0"/>
+                              <Component id="roundedTextField1" min="-2" pref="343" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="username" min="-2" pref="338" max="-2" attributes="0"/>
+                              <Component id="roundedTextField2" min="-2" pref="338" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="51" max="32767" attributes="0"/>
@@ -237,12 +237,12 @@
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="username" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="roundedTextField2" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="password" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="roundedTextField1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="66" max="32767" attributes="0"/>
                       <Component id="login" min="-2" max="-2" attributes="0"/>
@@ -299,7 +299,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginActionPerformed"/>
               </Events>
             </Component>
-            <Component class="template.RoundedTextField" name="password">
+            <Component class="template.RoundedTextField" name="roundedTextField1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="14" style="0"/>
@@ -310,10 +310,10 @@
                 <Property name="roundTopRight" type="int" value="10"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundedTextField1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="template.RoundedTextField" name="username">
+            <Component class="template.RoundedTextField" name="roundedTextField2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="14" style="0"/>
@@ -324,7 +324,7 @@
                 <Property name="roundTopRight" type="int" value="10"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundedTextField2ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

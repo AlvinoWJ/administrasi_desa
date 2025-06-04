@@ -4,6 +4,10 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
+
+
 /**
  *
  * @author hp
@@ -42,6 +46,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         login = new javax.swing.JButton();
         password = new template.RoundedTextField();
         username = new template.RoundedTextField();
+
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,7 +143,6 @@ public class LoginAdmin extends javax.swing.JFrame {
                 loginActionPerformed(evt);
             }
         });
-
         password.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         password.setRoundBottomLeft(10);
         password.setRoundBottomRight(10);
@@ -261,7 +265,6 @@ public class LoginAdmin extends javax.swing.JFrame {
         kembali.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
