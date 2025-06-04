@@ -4,6 +4,13 @@
  */
 package View;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import model.suratusaha;            
+import database.suratusahaDAO;           
+import database.koneksidatabase;  
+
 /**
  *
  * @author hp
@@ -47,17 +54,17 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
+        submit = new javax.swing.JButton();
+        nama = new javax.swing.JTextField();
+        ttl = new javax.swing.JTextField();
+        jeniskelamin = new javax.swing.JTextField();
+        nik = new javax.swing.JTextField();
+        agama = new javax.swing.JTextField();
+        status = new javax.swing.JTextField();
+        alamat = new javax.swing.JTextField();
+        namausaha = new javax.swing.JTextField();
+        jenisusaha = new javax.swing.JTextField();
+        alamatusaha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -195,18 +202,72 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Alamat Usaha:");
 
-        jButton3.setFont(new java.awt.Font("SansSerif", 3, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(51, 153, 255));
-        jButton3.setText("SUBMIT");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        submit.setFont(new java.awt.Font("SansSerif", 3, 18)); // NOI18N
+        submit.setForeground(new java.awt.Color(51, 153, 255));
+        submit.setText("SUBMIT");
+        submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                submitActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                namaActionPerformed(evt);
+            }
+        });
+
+        ttl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttlActionPerformed(evt);
+            }
+        });
+
+        jeniskelamin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jeniskelaminActionPerformed(evt);
+            }
+        });
+
+        nik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nikActionPerformed(evt);
+            }
+        });
+
+        agama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agamaActionPerformed(evt);
+            }
+        });
+
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+
+        alamat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alamatActionPerformed(evt);
+            }
+        });
+
+        namausaha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namausahaActionPerformed(evt);
+            }
+        });
+
+        jenisusaha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jenisusahaActionPerformed(evt);
+            }
+        });
+
+        alamatusaha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alamatusahaActionPerformed(evt);
             }
         });
 
@@ -232,12 +293,12 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addGap(68, 68, 68)))
                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
-                            .addComponent(jTextField11)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField13)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                            .addComponent(jeniskelamin)
+                            .addComponent(ttl)
+                            .addComponent(agama)
+                            .addComponent(status, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nik, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(roundedPanel2Layout.createSequentialGroup()
@@ -248,19 +309,17 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel13))
                                 .addGap(84, 84, 84))
-                            .addGroup(roundedPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField15)
-                            .addComponent(jTextField18))))
+                            .addComponent(jenisusaha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                            .addComponent(namausaha, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(alamat)
+                            .addComponent(alamatusaha))))
                 .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
                 .addContainerGap(628, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(593, 593, 593))
         );
         roundedPanel2Layout.setVerticalGroup(
@@ -269,45 +328,45 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jeniskelamin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ttl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namausaha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jenisusaha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alamatusaha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -360,13 +419,101 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        try {
+            // 1. Ambil data dari form
+            String namaValue  = nama.getText();
+            String nikValue  = nik.getText();
+            String ttlValue  = ttl.getText();
+            String alamatValue  = alamat.getText();
+            String jenisKelaminValue  = jeniskelamin.getText();
+            String agamaValue  = agama.getText();
+            String statusValue  = status.getText();
+            String namaUsahaValue  = namausaha.getText();
+            String jenisUsahaValue  = jenisusaha.getText();
+            String alamatUsahaValue  = alamatusaha.getText();
+              
+            if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
+                alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty() ||
+                statusValue.isEmpty() || namaUsahaValue.isEmpty() || jenisUsahaValue.isEmpty() ||
+                alamatUsahaValue.isEmpty()) {
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+                JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
+                return;
+            }
+            if (!nikValue.matches("\\d{16}")) {
+                JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
+                return;
+            }
+
+            // 2. Buat objek suratdomisili
+            suratusaha surat = new suratusaha(
+                namaValue,
+                nikValue,
+                ttlValue,
+                alamatValue,
+                jenisKelaminValue,
+                agamaValue,
+                statusValue,
+                namaUsahaValue,
+                jenisUsahaValue,
+                alamatUsahaValue
+            );
+
+            // 3. Buat koneksi ke database
+            Connection conn = koneksidatabase.getConnection();
+
+            // 4. Buat objek DAO dan simpan data
+            suratusahaDAO dao = new suratusahaDAO(conn);
+            dao.insert(surat);
+
+            // 5. Tampilkan pesan sukses
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());
+        }      
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_namaActionPerformed
+
+    private void nikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nikActionPerformed
+
+    }//GEN-LAST:event_nikActionPerformed
+
+    private void jeniskelaminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jeniskelaminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jeniskelaminActionPerformed
+
+    private void ttlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttlActionPerformed
+
+    private void agamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agamaActionPerformed
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusActionPerformed
+
+    private void alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamatActionPerformed
+
+    private void namausahaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namausahaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namausahaActionPerformed
+
+    private void jenisusahaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisusahaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jenisusahaActionPerformed
+
+    private void alamatusahaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamatusahaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamatusahaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,9 +551,11 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField agama;
+    private javax.swing.JTextField alamat;
+    private javax.swing.JTextField alamatusaha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -421,18 +570,16 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jeniskelamin;
+    private javax.swing.JTextField jenisusaha;
+    private javax.swing.JTextField nama;
+    private javax.swing.JTextField namausaha;
+    private javax.swing.JTextField nik;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;
     private template.RoundedPanel roundedPanel3;
+    private javax.swing.JTextField status;
+    private javax.swing.JButton submit;
+    private javax.swing.JTextField ttl;
     // End of variables declaration//GEN-END:variables
 }

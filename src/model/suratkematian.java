@@ -3,7 +3,6 @@ package model;
 public class suratkematian extends surat {
     private String jenisKelamin;
     private String Pekerjaan;
-    private String status;
     private String agama;
     private String hariTanggalMeninggal;
     private String jamMeninggal;
@@ -13,12 +12,11 @@ public class suratkematian extends surat {
    
     public suratkematian(String nama, String tempatTanggalLahir, String nik,
                                    String alamat, String jenisKelamin, String Pekerjaan, 
-                                   String status, String agama, String hariTanggalMeninggal, String jamMeninggal,
+                                   String agama, String hariTanggalMeninggal, String jamMeninggal,
                                    String sebabKematian, String yangMenerangkanKematian, String tempatKematian) {
         super(nama, tempatTanggalLahir, nik, alamat);
         this.jenisKelamin = jenisKelamin;
         this.Pekerjaan = Pekerjaan;
-        this.status = status;
         this.agama = agama;
         this.hariTanggalMeninggal = hariTanggalMeninggal;
         this.jamMeninggal = jamMeninggal;
@@ -32,9 +30,6 @@ public class suratkematian extends surat {
     
     public String getPekerjaan() { return Pekerjaan; }
     public void setPekerjaan(String Pekerjaan) { this.Pekerjaan = Pekerjaan; }
-
-    public String getstatus() { return status; }
-    public void setstatus(String status) { this.status = status; }
 
     public String getAgama() { return agama; }
     public void setAgama(String agama) { this.agama = agama; }

@@ -39,9 +39,9 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        roundedTextField1 = new template.RoundedTextField();
-        roundedTextField2 = new template.RoundedTextField();
+        login = new javax.swing.JButton();
+        password = new template.RoundedTextField();
+        username = new template.RoundedTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,34 +130,34 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password:");
 
-        jButton3.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(51, 153, 255));
-        jButton3.setText("LOGIN");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        login.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        login.setForeground(new java.awt.Color(51, 153, 255));
+        login.setText("LOGIN");
+        login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                loginActionPerformed(evt);
             }
         });
 
-        roundedTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roundedTextField1.setRoundBottomLeft(10);
-        roundedTextField1.setRoundBottomRight(10);
-        roundedTextField1.setRoundTopLeft(10);
-        roundedTextField1.setRoundTopRight(10);
-        roundedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        password.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        password.setRoundBottomLeft(10);
+        password.setRoundBottomRight(10);
+        password.setRoundTopLeft(10);
+        password.setRoundTopRight(10);
+        password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedTextField1ActionPerformed(evt);
+                passwordActionPerformed(evt);
             }
         });
 
-        roundedTextField2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roundedTextField2.setRoundBottomLeft(10);
-        roundedTextField2.setRoundBottomRight(10);
-        roundedTextField2.setRoundTopLeft(10);
-        roundedTextField2.setRoundTopRight(10);
-        roundedTextField2.addActionListener(new java.awt.event.ActionListener() {
+        username.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        username.setRoundBottomLeft(10);
+        username.setRoundBottomRight(10);
+        username.setRoundTopLeft(10);
+        username.setRoundTopRight(10);
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roundedTextField2ActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
 
@@ -168,7 +168,7 @@ public class LoginAdmin extends javax.swing.JFrame {
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton3)
+                    .addComponent(login)
                     .addComponent(jLabel2))
                 .addGap(120, 120, 120))
             .addGroup(roundedPanel1Layout.createSequentialGroup()
@@ -177,11 +177,11 @@ public class LoginAdmin extends javax.swing.JFrame {
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(roundedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(roundedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -192,13 +192,13 @@ public class LoginAdmin extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(roundedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(roundedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(login)
                 .addGap(30, 30, 30))
         );
 
@@ -262,19 +262,19 @@ public class LoginAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void roundedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedTextField1ActionPerformed
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roundedTextField1ActionPerformed
+    }//GEN-LAST:event_passwordActionPerformed
 
-    private void roundedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedTextField2ActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roundedTextField2ActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         dashboard_admin menu = new dashboard_admin();
         menu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,7 +314,6 @@ public class LoginAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -324,8 +323,9 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton login;
+    private template.RoundedTextField password;
     private template.RoundedPanel roundedPanel1;
-    private template.RoundedTextField roundedTextField1;
-    private template.RoundedTextField roundedTextField2;
+    private template.RoundedTextField username;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,12 @@
  */
 package View;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import model.suratdomisili;            
+import database.suratdomisiliDAO;           
+import database.koneksidatabase;       
 /**
  *
  * @author hp
@@ -44,14 +50,14 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
+        submit = new javax.swing.JButton();
+        nama = new javax.swing.JTextField();
+        ttl = new javax.swing.JTextField();
+        jeniskelamin = new javax.swing.JTextField();
+        nik = new javax.swing.JTextField();
+        pekerjaan = new javax.swing.JTextField();
+        agama = new javax.swing.JTextField();
+        alamat = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -177,18 +183,55 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Alamat Domisili:");
 
-        jButton3.setFont(new java.awt.Font("SansSerif", 3, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(51, 153, 255));
-        jButton3.setText("SUBMIT");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        submit.setFont(new java.awt.Font("SansSerif", 3, 18)); // NOI18N
+        submit.setForeground(new java.awt.Color(51, 153, 255));
+        submit.setText("SUBMIT");
+        
+        submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                submitActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                namaActionPerformed(evt);
+            }
+        });
+
+        ttl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttlActionPerformed(evt);
+            }
+        });
+
+        jeniskelamin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jeniskelaminActionPerformed(evt);
+            }
+        });
+
+        nik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nikActionPerformed(evt);
+            }
+        });
+
+        pekerjaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pekerjaanActionPerformed(evt);
+            }
+        });
+
+        agama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agamaActionPerformed(evt);
+            }
+        });
+
+        alamat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alamatActionPerformed(evt);
             }
         });
 
@@ -210,16 +253,16 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addGap(68, 68, 68)
                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
-                            .addComponent(jTextField11)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField13)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField15)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+                            .addComponent(jeniskelamin)
+                            .addComponent(ttl)
+                            .addComponent(pekerjaan)
+                            .addComponent(agama, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(alamat)
+                            .addComponent(nik, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(roundedPanel2Layout.createSequentialGroup()
                         .addGap(630, 630, 630)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 47, Short.MAX_VALUE))
         );
         roundedPanel2Layout.setVerticalGroup(
@@ -228,33 +271,33 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jeniskelamin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ttl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pekerjaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 49, Short.MAX_VALUE))
         );
 
@@ -309,13 +352,75 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        try {
+            // 1. Ambil data dari form
+            String namaValue = nama.getText();
+            String nikValue = nik.getText();
+            String ttlValue = ttl.getText();
+            String jenisKelamin = jeniskelamin.getText();
+            String agamaValue = agama.getText();
+            String pekerjaanValue = pekerjaan.getText();
+            String alamatValue = alamat.getText();
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+            if (!nikValue.matches("\\d{16}")) {
+            JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
+            return;
+            }
+                        
+            // 2. Buat objek suratdomisili
+            suratdomisili surat = new suratdomisili(
+                namaValue,
+                nikValue,
+                ttlValue,
+                jenisKelamin,
+                agamaValue,
+                pekerjaanValue,
+                alamatValue
+            );
+
+            // 3. Buat koneksi ke database
+            Connection conn = koneksidatabase.getConnection();
+
+            // 4. Buat objek DAO dan simpan data
+            suratdomisiliDAO dao = new suratdomisiliDAO(conn);
+            dao.insert(surat);
+
+            // 5. Tampilkan pesan sukses
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());
+        }      
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_namaActionPerformed
+
+    private void nikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nikActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nikActionPerformed
+
+    private void ttlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttlActionPerformed
+
+    private void pekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pekerjaanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pekerjaanActionPerformed
+
+    private void jeniskelaminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jeniskelaminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jeniskelaminActionPerformed
+
+    private void agamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agamaActionPerformed
+
+    private void alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,18 +458,14 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField agama;
+    private javax.swing.JTextField alamat;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -372,20 +473,14 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jeniskelamin;
+    private javax.swing.JTextField nama;
+    private javax.swing.JTextField nik;
+    private javax.swing.JTextField pekerjaan;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;
-    private template.RoundedPanel roundedPanel3;
-    private template.RoundedPanel roundedPanel4;
-    private template.RoundedPanel roundedPanel5;
-    private template.RoundedPanel roundedPanel6;
-    private template.RoundedPanel roundedPanel7;
     private template.RoundedPanel roundedPanel8;
+    private javax.swing.JButton submit;
+    private javax.swing.JTextField ttl;
     // End of variables declaration//GEN-END:variables
 }

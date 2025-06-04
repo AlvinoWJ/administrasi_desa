@@ -16,8 +16,8 @@ public class suratmenikahDAO {
     public void insert(suratmenikah surat) throws SQLException {
         String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
                                 "VALUES (?, ?, ?, ?, ?, ?)";
-        String insertMenikahSQL = "INSERT INTO surat_menikah (id_surat, nama_pasangan, jenis_kelamin, agama, pekerjaan, status, kewarganegaraan, kewarganegaraan_pasangan) " +
-                                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertMenikahSQL = "INSERT INTO surat_menikah (id_surat, nama_pasangan, jenis_kelamin, agama, status, kewarganegaraan, kewarganegaraan_pasangan) " +
+                                  "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
@@ -44,7 +44,6 @@ public class suratmenikahDAO {
             stmt2.setString(2, surat.getNamaPasangan());
             stmt2.setString(3, surat.getJenisKelamin());
             stmt2.setString(4, surat.getAgama());
-            stmt2.setString(5, surat.getPekerjaan());
             stmt2.setString(6, surat.getStatus());
             stmt2.setString(7, surat.getKewarganegaraan());
             stmt2.setString(8, surat.getKewarganegaraanPasangan());
@@ -77,7 +76,6 @@ public class suratmenikahDAO {
                         rs.getString("jenis_kelamin"),
                         rs.getString("agama"),
                         rs.getString("status"),
-                        rs.getString("pekerjaan"),
                         rs.getString("kewarganegaraan"),
                         rs.getString("nama_pasangan"),
                         rs.getString("kewarganegaraan_pasangan")
@@ -108,7 +106,6 @@ public class suratmenikahDAO {
                     rs.getString("jenis_kelamin"),
                     rs.getString("agama"),
                     rs.getString("status"),
-                    rs.getString("pekerjaan"),
                     rs.getString("kewarganegaraan"),
                     rs.getString("nama_pasangan"),
                     rs.getString("kewarganegaraan_pasangan")

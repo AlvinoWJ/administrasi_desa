@@ -4,20 +4,18 @@ public class suratusaha extends surat {
     private String jenisKelamin;
     private String agama;
     private String statusPerkawinan;
-    private String pekerjaan;
     private String namaUsaha;
     private String jenisUsaha;
     private String alamatUsaha;
 
-public suratusaha(String nama, String tempatTanggalLahir, String nik,
+public suratusaha(String nama, String nik, String tempatTanggalLahir,
                 String alamat, String jenisKelamin, String agama, 
-                String statusPerkawinan, String pekerjaan, String namaUsaha, String jenisUsaha,
+                String statusPerkawinan, String namaUsaha, String jenisUsaha,
                 String alamatUsaha) {
-        super(nama, tempatTanggalLahir, nik, alamat);
+        super(nama, nik, tempatTanggalLahir, alamat);
         this.jenisKelamin = jenisKelamin;
         this.agama = agama;
         this.statusPerkawinan = statusPerkawinan;
-        this.pekerjaan = pekerjaan;
         this.namaUsaha = namaUsaha;
         this.jenisUsaha = jenisUsaha;
         this.alamatUsaha = alamatUsaha;
@@ -31,9 +29,6 @@ public suratusaha(String nama, String tempatTanggalLahir, String nik,
     
     public String getStatusPerkawinan() { return statusPerkawinan; }
     public void setStatusPerkawinan(String statusPerkawinan) { this.statusPerkawinan = statusPerkawinan; }
-    
-    public String getPekerjaan() { return pekerjaan; }
-    public void setPekerjaan(String pekerjaan) { this.pekerjaan = pekerjaan; }
 
     public String getNamaUsaha() { return namaUsaha; }
     public void setNamaUsaha(String namaUsaha) { this.namaUsaha = namaUsaha; }
@@ -51,3 +46,4 @@ public suratusaha(String nama, String tempatTanggalLahir, String nik,
     public String generateIsiSurat() {return utils.templatesurat.suratusaha(this);}
 }
     
+

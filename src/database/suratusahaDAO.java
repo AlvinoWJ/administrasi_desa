@@ -13,22 +13,23 @@ public class suratusahaDAO {
     }
 
     public void insert(suratusaha surat) throws SQLException {
-        String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
-                                "VALUES (?, ?, ?, ?, ?, ?)";
-        String insertUsahaSQL = "INSERT INTO surat_usaha (id_surat, jenis_kelamin, agama, status_perkawinan, pekerjaan, nama_usaha, jenis_usaha, alamat_usaha) " +
-                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertSuratSQL = "INSERT INTO surat (nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
+                                "VALUES (?, ?, ?, ?, ?)";
+        String updatenomorSuratSQL = "UPDATE surat SET nomor_surat = ? WHERE id_surat = ?";
+        String insertUsahaSQL = "INSERT INTO surat_usaha (id_surat, jenis_kelamin, agama, status_perkawinan, nama_usaha, jenis_usaha, alamat_usaha) " +
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (
-            PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL);
-            PreparedStatement stmt2 = connection.prepareStatement(insertUsahaSQL)
+            PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt2 = connection.prepareStatement(updatenomorSuratSQL);
+            PreparedStatement stmt3 = connection.prepareStatement(insertUsahaSQL)
         ) {
             connection.setAutoCommit(false);
-            stmt1.setString(1, surat.getNomorSurat());
-            stmt1.setString(2, surat.getNama());
-            stmt1.setString(3, surat.getNik());
-            stmt1.setString(4, surat.getTempatTanggalLahir());
-            stmt1.setString(5, surat.getAlamat());
-            stmt1.setString(6, surat.getJenisSurat());
+            stmt1.setString(1, surat.getNama());
+            stmt1.setString(2, surat.getNik());
+            stmt1.setString(3, surat.getTempatTanggalLahir());
+            stmt1.setString(4, surat.getAlamat());
+            stmt1.setString(5, surat.getJenisSurat());
             stmt1.executeUpdate();
 
             // Ambil id_surat yang baru di-generate
@@ -36,16 +37,26 @@ public class suratusahaDAO {
             if (!generatedKeys.next()) throw new SQLException("Gagal mengambil ID surat.");
             int idSurat = generatedKeys.getInt(1);
 
-            // Simpan ke surat_usaha
-            stmt2.setInt(1, idSurat);
-            stmt2.setString(2, surat.getJenisKelamin());
-            stmt2.setString(3, surat.getAgama());
-            stmt2.setString(4, surat.getStatusPerkawinan());
-            stmt2.setString(5, surat.getPekerjaan());
-            stmt2.setString(6, surat.getNamaUsaha());
-            stmt2.setString(7, surat.getJenisUsaha());
-            stmt2.setString(8, surat.getAlamatUsaha());
+            String kode = switch(surat.getJenisSurat()) {
+                case "Surat Keterangan Usaha" -> "suketusaha";
+                default -> "lainnya";
+            };
+            String nomorSurat = "XXI/" + kode + "/" + java.time.Year.now().getValue() + "-" + idSurat;
+
+            
+            stmt2.setString(1, nomorSurat);
+            stmt2.setInt(2, idSurat);
             stmt2.executeUpdate();
+            
+            // Simpan ke surat_usaha
+            stmt3.setInt(1, idSurat);
+            stmt3.setString(2, surat.getJenisKelamin());
+            stmt3.setString(3, surat.getAgama());
+            stmt3.setString(4, surat.getStatusPerkawinan());
+            stmt3.setString(5, surat.getNamaUsaha());
+            stmt3.setString(6, surat.getJenisUsaha());
+            stmt3.setString(7, surat.getAlamatUsaha());
+            stmt3.executeUpdate();
 
             connection.commit();
         } catch (SQLException e) {
@@ -69,7 +80,6 @@ public class suratusahaDAO {
                     rs.getString("jenis_kelamin"),
                     rs.getString("agama"),
                     rs.getString("status_perkawinan"),
-                    rs.getString("pekerjaan"),
                     rs.getString("nama_usaha"),
                     rs.getString("jenis_usaha"),
                     rs.getString("alamat_usaha"),

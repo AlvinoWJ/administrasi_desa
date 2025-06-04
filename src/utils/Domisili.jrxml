@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="39d6d73c-09d9-426b-a0d4-ce01a00a280d">
+	<property name="ireport.zoom" value="2.14358881000001"/>
+	<property name="ireport.x" value="212"/>
+	<property name="ireport.y" value="998"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT 
     s.id_surat,
@@ -19,8 +22,7 @@ FROM
 JOIN 
     surat_domisili d ON s.id_surat = d.id_surat
 WHERE 
-    s.jenis_surat = 'Surat Keterangan Domisili';
-]]>
+    s.jenis_surat = 'Surat Keterangan Domisili';]]>
 	</queryString>
 	<field name="id_surat" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -58,20 +60,228 @@ WHERE
 	<field name="agama" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="tempat_tanggal_lahir_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tempat_tanggal_lahir}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="169" y="60" width="213" height="26" uuid="ea63b9ae-b60e-48e2-ac6f-a8cac45c6537"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="17" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Surat Keterangan Domisili]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="19" width="465" height="44" uuid="dd9d39db-bf44-4ed7-a333-570d399d170a"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Times New Roman" size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Yang  bertanda  tangan  dibawah  ini,  Kepala  Desa  Desa  Sugihwaras  Kecamatan  Candi  Kabupaten  Sidoarjo,  menerangkan  dengan  sebenarnya  bahwa:]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="538" splitType="Stretch">
+			<staticText>
+				<reportElement x="81" y="10" width="111" height="20" uuid="7a6e289e-2189-47c1-9aab-7c0a013a8156"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Nama	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="42" width="111" height="20" uuid="4cb1521f-cc5e-4859-b2da-0a69fee43ed2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[NIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="108" width="111" height="20" uuid="fa99518c-d98d-4a77-afbd-2d75ba7d0cdf"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Tempat / Tanggal Lahir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="77" width="111" height="20" uuid="fea368d6-e8db-470d-9906-65955caf9a58"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Jenis Kelamin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="138" width="111" height="20" uuid="e4f26e96-29d9-479c-8ebf-90349c647318"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Agama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="168" width="111" height="20" uuid="6b61c060-c9c4-4c8d-a836-3ae216e2cdfd"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Pekerjaan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="198" width="111" height="20" uuid="4b1edd4b-793b-4317-b41e-c40f5a7dac48"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="198" width="69" height="20" uuid="b815b0ca-8ca3-4181-a50e-7f8e2ac9f340"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="10" width="69" height="20" uuid="e5696728-3817-4267-8276-425bd5798e23"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="42" width="69" height="20" uuid="1a8897c7-84eb-442b-a804-c1a7faeaf85b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nik}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="138" width="69" height="20" uuid="ca5b1e1b-cb6c-4891-a70a-b5f14cc3ff37"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="168" width="69" height="20" uuid="45c41ea7-e03d-4dc0-9bf6-f34965858547"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pekerjaan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="77" width="84" height="20" uuid="5fad352d-29d4-4c67-a2d1-415bef1a5d5b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="108" width="121" height="20" uuid="222b2b09-4c73-4ad4-9805-e39fd45cf87f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tempat_tanggal_lahir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="206" y="10" width="7" height="20" uuid="eba9f932-4110-4f10-ade0-88b6d8a8ef2e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="42" width="7" height="20" uuid="b75e7774-1ef0-46e6-a3b8-f326dd71bf22"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="77" width="7" height="20" uuid="bfe5c473-2f09-4f96-b10c-b15e1c1aefb0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="108" width="7" height="20" uuid="083209cc-7551-4bc5-904f-a4d81425a5d8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="138" width="7" height="20" uuid="fc968611-f42a-40e2-95a0-28ae0898c8b7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="168" width="7" height="20" uuid="3eed2cfa-4393-461e-b721-eb048c8dfaa7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="198" width="7" height="20" uuid="9bc62fae-3ee4-4fe7-955e-cda395ea84a4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="261" width="464" height="19" uuid="b29f590f-49a3-4368-aff3-4b91698e7ce2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Adalah  benar  penduduk  Desa  Sugihwaras  Kecamatan  Candi  dan  saat  ini  
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="284" width="126" height="19" uuid="1a391f55-fc3f-45e9-8a4e-ae28ecc9d24b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[saat  ini  berdomisili  di ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="159" y="284" width="338" height="19" uuid="1aeadd1e-b5c2-4335-b3a9-3a04733b0e40"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="33" y="327" width="464" height="20" uuid="c9dae5f4-9f88-412a-9952-2aecddc61145"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Demikian  surat  keterangan  ini  dibuat  buat  dengan  sebenarnya  agar  dapat  dipergunakan  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="347" width="464" height="19" uuid="188333be-e570-4223-94f7-8655d246d2b2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[sebagaimana  mestinya. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="358" y="424" width="46" height="20" uuid="c5c6b2b5-9217-4209-b17b-d377b2e35f42"/>
+				<textFieldExpression><![CDATA[Sidoarjo]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="68" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

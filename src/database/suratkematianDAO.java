@@ -15,8 +15,8 @@ public class suratkematianDAO {
     public void insert(suratkematian surat) throws SQLException {
         String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
                                 "VALUES (?, ?, ?, ?, ?, ?)";
-        String insertKematianSQL = "INSERT INTO surat_kematian (id_surat, jenis_kelamin, agama, pekerjaan, status, hari_tanggal_meninggal, jam_meninggal, sebab_kematian, yang_menerangkan_kematian, tempat_kematian) " +
-                                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertKematianSQL = "INSERT INTO surat_kematian (id_surat, jenis_kelamin, agama, pekerjaan, hari_tanggal_meninggal, jam_meninggal, sebab_kematian, yang_menerangkan_kematian, tempat_kematian) " +
+                                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
@@ -43,7 +43,6 @@ public class suratkematianDAO {
             stmt2.setString(2, surat.getJenisKelamin());
             stmt2.setString(3, surat.getAgama());
             stmt2.setString(4, surat.getPekerjaan());
-            stmt2.setString(5, surat.getstatus());
             stmt2.setString(6, surat.getHariTanggalMeninggal());
             stmt2.setString(7, surat.getJamMeninggal());
             stmt2.setString(8, surat.getSebabKematian());
@@ -73,7 +72,6 @@ public class suratkematianDAO {
                         rs.getString("jenis_kelamin"),
                         rs.getString("agama"),
                         rs.getString("pekerjaan"),
-                        rs.getString("status"),
                         rs.getString("hari_tanggal_meninggal"),
                         rs.getString("jam_meninggal"),
                         rs.getString("sebab_kematian"),
@@ -102,7 +100,6 @@ public class suratkematianDAO {
                     rs.getString("jenis_kelamin"),
                     rs.getString("agama"),
                     rs.getString("pekerjaan"),
-                    rs.getString("status"),
                     rs.getString("hari_tanggal_meninggal"),
                     rs.getString("jam_meninggal"),
                     rs.getString("sebab_kematian"),
