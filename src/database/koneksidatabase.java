@@ -19,7 +19,7 @@ public class koneksidatabase {
     }
 
     public static Connection getConnection() throws SQLException {
-        String URL = "jdbc:mysql://localhost:3306/administrasi_masyarakat";
+        String URL = "jdbc:mysql://localhost:3306/administrasi_mandiri";
         String USER = "root";
         String PASSWORD = "";
 
