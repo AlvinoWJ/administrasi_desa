@@ -41,7 +41,7 @@ public class suratusahaDAO {
                 case "Surat Keterangan Usaha" -> "suketusaha";
                 default -> "lainnya";
             };
-            String nomorSurat = "XXI/" + kode + "/" + java.time.Year.now().getValue() + "-" + idSurat;
+            String nomorSurat = "XXI-" + idSurat + "/" + kode + "/" + java.time.Year.now().getValue();
 
             
             stmt2.setString(1, nomorSurat);

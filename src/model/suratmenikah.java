@@ -8,11 +8,11 @@ public class suratmenikah extends surat {
     private String namaPasangan;
     private String kewarganegaraanPasangan;
 
-public suratmenikah(String nama, String tempatTanggalLahir, String nik,
-                                   String alamat, String jenisKelamin, String agama,
-                                   String status, String kewarganegaraan,
-                                   String namaPasangan, String kewarganegaraanPasangan) {
-        super(nama, tempatTanggalLahir, nik, alamat);
+public suratmenikah(String nama, String nik, String tempatTanggalLahir,
+                    String alamat, String jenisKelamin, String agama,
+                    String status, String kewarganegaraan,
+                    String namaPasangan, String kewarganegaraanPasangan) {
+        super(nama, nik, tempatTanggalLahir, alamat);
         this.jenisKelamin = jenisKelamin;
         this.agama = agama;
         this.status = status;

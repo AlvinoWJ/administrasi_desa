@@ -4,20 +4,61 @@
  */
 package View;
 
+import database.adminDAO;  
+import database.koneksidatabase;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import template.TabelAdmin;
+
 /**
  *
  * @author hp
  */
 public class daftar_admin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form daftar_pengajuan
-     */
     public daftar_admin() {
         initComponents();
         setSize(1540, 860);
-         setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
+
+        try {
+            // Buat koneksi dan DAO
+            Connection conn = koneksidatabase.getConnection();
+            adminDAO dao = new adminDAO(conn);
+
+            // Buat panel dan isi tabel
+            TabelAdmin panelAdmin = new TabelAdmin();
+            panelAdmin.setTableData(dao.getAllAdmins());
+
+            // Tombol hapus
+            panelAdmin.getDeleteButton().addActionListener(e -> {
+                int selected = panelAdmin.getTable().getSelectedRow();
+                if (selected >= 0) {
+                    String username = (String) panelAdmin.getTableModel().getValueAt(selected, 0);
+                    int confirm = JOptionPane.showConfirmDialog(null,
+                            "Hapus admin \"" + username + "\"?",
+                            "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        if (dao.hapusAdmin(username)) {
+                            JOptionPane.showMessageDialog(null, "Admin dihapus");
+                            panelAdmin.setTableData(dao.getAllAdmins()); // Refresh data
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Gagal menghapus admin");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pilih admin terlebih dahulu");
+                }
+            });
+
+            // Tampilkan ke frame
+            getContentPane().add(panelAdmin);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menghubungkan ke database");
+        }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,9 +88,8 @@ public class daftar_admin extends javax.swing.JFrame {
         Daftar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         username = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        password = new javax.swing.JPasswordField();
+        tabelAdmin = new template.TabelAdmin();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -227,7 +267,6 @@ public class daftar_admin extends javax.swing.JFrame {
             }
         });
 
-        password.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
@@ -247,11 +286,11 @@ public class daftar_admin extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(roundedPanel4Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
+                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(password)))
                     .addGroup(roundedPanel4Layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(Daftar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -270,40 +309,21 @@ public class daftar_admin extends javax.swing.JFrame {
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(Daftar)
                 .addGap(51, 51, 51))
         );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Username", "Password"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
         roundedPanel3.setLayout(roundedPanel3Layout);
         roundedPanel3Layout.setHorizontalGroup(
             roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(tabelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         roundedPanel3Layout.setVerticalGroup(
@@ -311,11 +331,11 @@ public class daftar_admin extends javax.swing.JFrame {
             .addGroup(roundedPanel3Layout.createSequentialGroup()
                 .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundedPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundedPanel3Layout.createSequentialGroup()
                         .addGap(132, 132, 132)
-                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundedPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(tabelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -400,7 +420,27 @@ public class daftar_admin extends javax.swing.JFrame {
     }//GEN-LAST:event_roundedButton1ActionPerformed
 
     private void DaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DaftarActionPerformed
-        // TODO add your handling code here:
+        String user = username.getText();
+        String pass = String.valueOf(password.getPassword());
+
+        if (user.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan password tidak boleh kosong!");
+            return;
+        }
+
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            adminDAO dao = new adminDAO(conn);
+
+            if (dao.tambahAdmin(user, pass)) {
+                JOptionPane.showMessageDialog(this, "Admin berhasil didaftarkan!");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mendaftarkan admin.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Kesalahan koneksi:\n" + e.getMessage());
+        }
     }//GEN-LAST:event_DaftarActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -456,10 +496,8 @@ public class daftar_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
     private template.RoundedButton roundedButton5;
@@ -468,6 +506,7 @@ public class daftar_admin extends javax.swing.JFrame {
     private template.RoundedPanel roundedPanel2;
     private template.RoundedPanel roundedPanel3;
     private template.RoundedPanel roundedPanel4;
+    private template.TabelAdmin tabelAdmin;
     private javax.swing.JTextField username;
     private template.RoundedButton verifikasi;
     // End of variables declaration//GEN-END:variables

@@ -13,7 +13,7 @@ public class suratDAO {
 
     // ✅ Update status surat (oleh admin)
     public void updateStatusSurat(String nomorSurat, String statusBaru) throws SQLException {
-        String sql = "UPDATE surat SET status = ? WHERE nomor_surat = ?";
+        String sql = "UPDATE surat SET statusSurat = ? WHERE nomor_surat = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, statusBaru);
             stmt.setString(2, nomorSurat);
@@ -23,11 +23,11 @@ public class suratDAO {
 
     // ✅ Ambil status surat berdasarkan nomor
     public String getStatusSurat(String nomorSurat) throws SQLException {
-        String sql = "SELECT status FROM surat WHERE nomor_surat = ?";
+        String sql = "SELECT statusSurat FROM surat WHERE nomor_surat = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nomorSurat);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) return rs.getString("status");
+                if (rs.next()) return rs.getString("statusSurat");
             }
         }
         return null;
@@ -36,7 +36,7 @@ public class suratDAO {
     // ✅ Ambil semua nomor surat berdasarkan status tertentu (misalnya: "Menunggu")
     public List<String> getNomorSuratDenganStatus(String status) throws SQLException {
         List<String> list = new ArrayList<>();
-        String sql = "SELECT nomor_surat FROM surat WHERE status = ?";
+        String sql = "SELECT nomor_surat FROM surat WHERE statusSurat = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, status);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -63,7 +63,7 @@ public class suratDAO {
                     rs.getString("tempat_tanggal_lahir"),
                     rs.getString("alamat"),
                     rs.getString("jenis_surat"),
-                    rs.getString("status")
+                    rs.getString("statusSurat")
                 );
                 list.add(surat);
             }
@@ -91,10 +91,10 @@ public class suratDAO {
         private String tempat_tanggal_lahir;
         private String alamat;
         private String jenisSurat;
-        private String status;
+        private String statusSurat;
 
         public SuratDataUmum(int idSurat, String nomorSurat, String nama, String nik,
-                             String tempat_tanggal_lahir, String alamat, String jenisSurat, String status) {
+                             String tempat_tanggal_lahir, String alamat, String jenisSurat, String statusSurat) {
             this.idSurat = idSurat;
             this.nomorSurat = nomorSurat;
             this.nama = nama;
@@ -102,7 +102,7 @@ public class suratDAO {
             this.tempat_tanggal_lahir = tempat_tanggal_lahir;
             this.alamat = alamat;
             this.jenisSurat = jenisSurat;
-            this.status = status;
+            this.statusSurat = statusSurat;
         }
 
         // Getter methods
@@ -113,6 +113,6 @@ public class suratDAO {
         public String gettempat_tanggal_lahir() { return tempat_tanggal_lahir; }
         public String getAlamat() { return alamat; }
         public String getJenisSurat() { return jenisSurat; }
-        public String getStatus() { return status; }
+        public String getstatusSurat() { return statusSurat; }
     }
 }

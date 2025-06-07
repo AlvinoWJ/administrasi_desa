@@ -10,11 +10,11 @@ public class suratkematian extends surat {
     private String yangMenerangkanKematian;
     private String tempatKematian;
    
-    public suratkematian(String nama, String tempatTanggalLahir, String nik,
-                                   String alamat, String jenisKelamin, String Pekerjaan, 
-                                   String agama, String hariTanggalMeninggal, String jamMeninggal,
-                                   String sebabKematian, String yangMenerangkanKematian, String tempatKematian) {
-        super(nama, tempatTanggalLahir, nik, alamat);
+    public suratkematian(String nama, String nik, String tempatTanggalLahir,
+                    String alamat, String jenisKelamin, String Pekerjaan, 
+                    String agama, String hariTanggalMeninggal, String jamMeninggal,
+                    String sebabKematian, String yangMenerangkanKematian, String tempatKematian) {
+        super(nama, nik, tempatTanggalLahir, alamat);
         this.jenisKelamin = jenisKelamin;
         this.Pekerjaan = Pekerjaan;
         this.agama = agama;

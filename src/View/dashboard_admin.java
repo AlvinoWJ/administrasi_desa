@@ -4,6 +4,13 @@
  */
 package View;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.ArrayList;
+import database.suratDAO;           
+import database.koneksidatabase;  
 /**
  *
  * @author hp
@@ -15,6 +22,50 @@ public class dashboard_admin extends javax.swing.JFrame {
      */
     public dashboard_admin() {
         initComponents();
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            List<suratDAO.SuratDataUmum> data = dao.getAllSurat();
+
+            String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            Object[][] rowData = new Object[data.size()][columnNames.length];
+            for (int i = 0; i < data.size(); i++) {
+                suratDAO.SuratDataUmum sdu = data.get(i);
+                rowData[i][0] = sdu.getIdSurat();        
+                rowData[i][1] = sdu.getNomorSurat(); 
+                rowData[i][2] = sdu.getJenisSurat(); 
+                rowData[i][3] = sdu.getstatusSurat(); 
+                // Tambahkan atau sesuaikan field lainnya
+            }
+            javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(rowData, columnNames);
+            this.Tabelpengajuan.setModel(tableModel);
+            
+            // == TABEL VERIFIKASI (FILTER statusSurat) ==
+            List<suratDAO.SuratDataUmum> verifikasiData = new ArrayList<>();
+            for (suratDAO.SuratDataUmum sdu : data) {
+                if ("Diproses".equalsIgnoreCase(sdu.getstatusSurat())) {
+                    verifikasiData.add(sdu);
+                }
+            }
+
+            String[] columnNames2 = {"nomor_surat", "jenis_surat", "statusSurat"};
+            Object[][] rowData2 = new Object[verifikasiData.size()][columnNames2.length];
+            for (int i = 0; i < verifikasiData.size(); i++) {
+                suratDAO.SuratDataUmum sdu = verifikasiData.get(i);
+                rowData2[i][0] = sdu.getNomorSurat();
+                rowData2[i][1] = sdu.getJenisSurat();
+                rowData2[i][2] = sdu.getstatusSurat();
+            }
+
+            javax.swing.table.DefaultTableModel modelVerifikasi = new javax.swing.table.DefaultTableModel(rowData2, columnNames2);
+            this.TabelVerifikasi.setModel(modelVerifikasi);
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + ex.getMessage());
+        }
+        
+        
+        
          setSize(1540, 860);
          setLocationRelativeTo(null); 
     }
@@ -30,7 +81,7 @@ public class dashboard_admin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tabelpengajuan = new javax.swing.JTable();
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -41,7 +92,7 @@ public class dashboard_admin extends javax.swing.JFrame {
         roundedPanel3 = new template.RoundedPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        TabelVerifikasi = new javax.swing.JTable();
         roundedPanel1 = new template.RoundedPanel();
         roundedButton1 = new template.RoundedButton();
         roundedButton2 = new template.RoundedButton();
@@ -54,10 +105,15 @@ public class dashboard_admin extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tabelpengajuan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,8 +123,22 @@ public class dashboard_admin extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(Tabelpengajuan);
+        if (Tabelpengajuan.getColumnModel().getColumnCount() > 0) {
+            Tabelpengajuan.getColumnModel().getColumn(0).setResizable(false);
+            Tabelpengajuan.getColumnModel().getColumn(1).setResizable(false);
+            Tabelpengajuan.getColumnModel().getColumn(2).setResizable(false);
+            Tabelpengajuan.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         roundedPanel2.setBackground(new java.awt.Color(51, 153, 255));
         roundedPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -192,7 +262,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TabelVerifikasi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -203,7 +273,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(TabelVerifikasi);
 
         roundedPanel1.setBackground(new java.awt.Color(51, 153, 255));
         roundedPanel1.setRoundBottomRight(30);
@@ -316,23 +386,22 @@ public class dashboard_admin extends javax.swing.JFrame {
                                 .addGap(117, 117, 117)
                                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addGap(55, 55, 55)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(116, 116, 116)
                                 .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33)
-                        .addComponent(jButton1)
-                        .addGap(25, 25, 25))
+                        .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(352, 352, 352)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(118, 118, 118)
-                                .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +416,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,7 +426,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,6 +505,16 @@ public class dashboard_admin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Tabelpengajuan.setRowHeight(30);
+        Tabelpengajuan.getColumnModel().getColumn(0).setPreferredWidth(50);
+        Tabelpengajuan.getColumnModel().getColumn(1).setPreferredWidth(150);
+        Tabelpengajuan.getColumnModel().getColumn(2).setPreferredWidth(150);
+        Tabelpengajuan.getColumnModel().getColumn(3).setPreferredWidth(120);
+        
+        TabelVerifikasi.setRowHeight(30);
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -472,6 +551,8 @@ public class dashboard_admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelVerifikasi;
+    private javax.swing.JTable Tabelpengajuan;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -480,8 +561,6 @@ public class dashboard_admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;

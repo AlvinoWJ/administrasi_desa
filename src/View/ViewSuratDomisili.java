@@ -358,11 +358,19 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
             String namaValue = nama.getText();
             String nikValue = nik.getText();
             String ttlValue = ttl.getText();
-            String jenisKelamin = jeniskelamin.getText();
+            String jenisKelaminValue = jeniskelamin.getText();
             String agamaValue = agama.getText();
             String pekerjaanValue = pekerjaan.getText();
             String alamatValue = alamat.getText();
 
+            if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
+                alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty() ||
+                alamatValue.isEmpty()) {
+
+                JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
+                return;
+            }
+                        
             if (!nikValue.matches("\\d{16}")) {
             JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
             return;
@@ -373,7 +381,7 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
                 namaValue,
                 nikValue,
                 ttlValue,
-                jenisKelamin,
+                jenisKelaminValue,
                 agamaValue,
                 pekerjaanValue,
                 alamatValue

@@ -474,6 +474,14 @@ public class ViewSuratKematian extends javax.swing.JFrame {
             String pelaporValue = pelapor.getText();
             String tempatMeninggalValue = tempat.getText();
 
+            if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
+                alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty() ||
+                pekerjaanValue.isEmpty() || tglMeninggalValue.isEmpty() || jamMeninggalValue.isEmpty() || sebabKematianValue.isEmpty() ||
+                pelaporValue.isEmpty() || tempatMeninggalValue.isEmpty()) {
+
+                JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
+                return;
+            }
             if (!nikValue.matches("\\d{16}")) {
             JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
             return;
@@ -482,8 +490,8 @@ public class ViewSuratKematian extends javax.swing.JFrame {
             // 2. Buat objek suratdomisili
             suratkematian surat = new suratkematian(
             namaValue,
-            ttlValue,
             nikValue,
+            ttlValue,
             alamatValue,
             jenisKelaminValue,
             pekerjaanValue,

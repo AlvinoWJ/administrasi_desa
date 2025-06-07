@@ -83,7 +83,7 @@ public class templatesurat {
                             Demikian surat keterangan ini kami buat dengan sebenar-benarnya dan untuk
                          dipergunakan sebagaimana mestinya.""",
         surat.getNama(), surat.getTempatTanggalLahir(), surat.getNik(), surat.getJenisKelamin(),
-        surat.getAgama(), surat.getStatusPerkawinan(), surat.getPekerjaan(), surat.getAlamat(),
+        surat.getAgama(), surat.getStatusPerkawinan(), surat.getAlamat(),
         surat.getNamaUsaha(), surat.getJenisUsaha(), surat.getAlamatUsaha()
     );
 }
@@ -114,7 +114,7 @@ public class templatesurat {
                          """,
         surat.getNomorSurat(),
         surat.getNama(), surat.getJenisKelamin(), surat.getTempatTanggalLahir(),
-        surat.getAgama(), surat.getStatus(), surat.getPekerjaan(), surat.getKewarganegaraan(),
+        surat.getAgama(), surat.getStatus(), surat.getKewarganegaraan(),
         surat.getAlamat(), surat.getNamaPasangan(), surat.getKewarganegaraanPasangan()
         );
     }

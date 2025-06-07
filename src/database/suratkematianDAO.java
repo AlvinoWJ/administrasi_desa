@@ -13,24 +13,23 @@ public class suratkematianDAO {
     }
 
     public void insert(suratkematian surat) throws SQLException {
-        String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
-                                "VALUES (?, ?, ?, ?, ?, ?)";
+        String insertSuratSQL = "INSERT INTO surat (nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
+                                "VALUES (?, ?, ?, ?, ?)";
+        String updatenomorSuratSQL = "UPDATE surat SET nomor_surat = ? WHERE id_surat = ?";
         String insertKematianSQL = "INSERT INTO surat_kematian (id_surat, jenis_kelamin, agama, pekerjaan, hari_tanggal_meninggal, jam_meninggal, sebab_kematian, yang_menerangkan_kematian, tempat_kematian) " +
                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (
             PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement stmt2 = connection.prepareStatement(insertKematianSQL)
+            PreparedStatement stmt2 = connection.prepareStatement(updatenomorSuratSQL);
+            PreparedStatement stmt3 = connection.prepareStatement(insertKematianSQL)
         ) {
             connection.setAutoCommit(false);
-
-            // Insert ke tabel surat
-            stmt1.setString(1, surat.getNomorSurat());
-            stmt1.setString(2, surat.getNama());
-            stmt1.setString(3, surat.getNik());
-            stmt1.setString(4, surat.getTempatTanggalLahir());
-            stmt1.setString(5, surat.getAlamat());
-            stmt1.setString(6, surat.getJenisSurat());
+            stmt1.setString(1, surat.getNama());
+            stmt1.setString(2, surat.getNik());
+            stmt1.setString(3, surat.getTempatTanggalLahir());
+            stmt1.setString(4, surat.getAlamat());
+            stmt1.setString(5, surat.getJenisSurat());
             stmt1.executeUpdate();
 
             // Ambil id_surat yang baru di-generate
@@ -38,17 +37,27 @@ public class suratkematianDAO {
             if (!generatedKeys.next()) throw new SQLException("Gagal mengambil ID surat.");
             int idSurat = generatedKeys.getInt(1);
 
-            // Insert ke tabel surat_kematian
-            stmt2.setInt(1, idSurat);
-            stmt2.setString(2, surat.getJenisKelamin());
-            stmt2.setString(3, surat.getAgama());
-            stmt2.setString(4, surat.getPekerjaan());
-            stmt2.setString(6, surat.getHariTanggalMeninggal());
-            stmt2.setString(7, surat.getJamMeninggal());
-            stmt2.setString(8, surat.getSebabKematian());
-            stmt2.setString(9, surat.getYangMenerangkanKematian());
-            stmt2.setString(10, surat.getTempatKematian());
+            String kode = switch(surat.getJenisSurat()) {
+                case "Surat Keterangan Kematian" -> "suketkematian";
+                default -> "lainnya";
+            };
+            String nomorSurat = "XXI-" + idSurat + "/" + kode + "/" + java.time.Year.now().getValue();
+            
+            stmt2.setString(1, nomorSurat);
+            stmt2.setInt(2, idSurat);
             stmt2.executeUpdate();
+
+            // Insert ke tabel surat_kematian
+            stmt3.setInt(1, idSurat);
+            stmt3.setString(2, surat.getJenisKelamin());
+            stmt3.setString(3, surat.getAgama());
+            stmt3.setString(4, surat.getPekerjaan());
+            stmt3.setString(5, surat.getHariTanggalMeninggal());
+            stmt3.setString(6, surat.getJamMeninggal());
+            stmt3.setString(7, surat.getSebabKematian());
+            stmt3.setString(8, surat.getYangMenerangkanKematian());
+            stmt3.setString(9, surat.getTempatKematian());
+            stmt3.executeUpdate();
 
             connection.commit();
         } catch (SQLException e) {

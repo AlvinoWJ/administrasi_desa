@@ -423,8 +423,8 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
         try{
             // Ambil data dari inputan form
             String namaValue = this.nama.getText();
-            String ttlValue = this.ttl.getText();
             String nikValue = this.nik.getText();
+            String ttlValue = this.ttl.getText();
             String alamatValue = this.alamat.getText();
             String jenisKelaminValue = this.jeniskelamin.getText();
             String agamaValue = this.agama.getText();
@@ -433,6 +433,13 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
             String namaPasanganValue = this.namapasangan.getText();
             String kwnPasanganValue = this.kwnpasangan.getText();
 
+            if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
+                alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty() ||
+                statusValue.isEmpty() || kewarganegaraanValue.isEmpty() || namaPasanganValue.isEmpty() ||
+                kwnPasanganValue.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
+                return;
+            }
             if (!nikValue.matches("\\d{16}")) {
             JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
             return;
@@ -440,8 +447,8 @@ public class ViewSuratMenikah extends javax.swing.JFrame {
                         
             suratmenikah surat = new suratmenikah(
                 namaValue,
-                ttlValue,
                 nikValue,
+                ttlValue,
                 alamatValue,
                 jenisKelaminValue,
                 agamaValue,
