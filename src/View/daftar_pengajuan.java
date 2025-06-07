@@ -4,19 +4,82 @@
  */
 package View;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.List;
+import database.suratDAO;           
+import database.koneksidatabase; 
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author hp
  */
 public class daftar_pengajuan extends javax.swing.JFrame {
 
-    /**
-     * Creates new form daftar_pengajuan
-     */
+    private TableRowSorter<DefaultTableModel> sorter;
     public daftar_pengajuan() {
         initComponents();
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            List<suratDAO.SuratDataUmum> data = dao.getAllSurat();
+
+            String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            Object[][] rowData = new Object[data.size()][columnNames.length];
+            for (int i = 0; i < data.size(); i++) {
+                suratDAO.SuratDataUmum sdu = data.get(i);
+                rowData[i][0] = sdu.getIdSurat();        
+                rowData[i][1] = sdu.getNomorSurat(); 
+                rowData[i][2] = sdu.getJenisSurat(); 
+                rowData[i][3] = sdu.getstatusSurat(); 
+                // Tambahkan atau sesuaikan field lainnya
+            }
+            javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(rowData, columnNames);
+            this.Tabelpengajuan.setModel(tableModel);
+
+            Tabelpengajuan.setModel(tableModel);
+            // Inisialisasi sorter dan set ke tabel
+            sorter = new TableRowSorter<>(tableModel);
+            Tabelpengajuan.setRowSorter(sorter);
+
+            // Tambahkan listener ke search bar
+            searchbar.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    filter();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    filter();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    filter();
+                }
+
+                private void filter() {
+                    String text = searchbar.getText();
+                    if (text.trim().length() == 0) {
+                        sorter.setRowFilter(null);
+                    } else {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    }
+                }
+            });
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + ex.getMessage());
+        }
         setSize(1540, 860);
-         setLocationRelativeTo(null); 
+        setLocationRelativeTo(null); 
     }
 
     /**
@@ -28,6 +91,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPanel1 = new javax.swing.JPanel();
         roundedPanel1 = new template.RoundedPanel();
         roundedButton1 = new template.RoundedButton();
@@ -39,10 +103,20 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        customTabelPanel2 = new template.CustomTabelPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabelpengajuan = new javax.swing.JTable();
+        searchbar = new template.RoundedTextField();
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -160,7 +234,7 @@ public class daftar_pengajuan extends javax.swing.JFrame {
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(344, 344, 344)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(447, Short.MAX_VALUE))
         );
         roundedPanel2Layout.setVerticalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,18 +254,50 @@ public class daftar_pengajuan extends javax.swing.JFrame {
             }
         });
 
+        Tabelpengajuan.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        Tabelpengajuan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(Tabelpengajuan);
+
+        searchbar.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        searchbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 11, Short.MAX_VALUE)
-                        .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(25, 25, 25))
@@ -204,9 +310,11 @@ public class daftar_pengajuan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -263,6 +371,18 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_roundedButton1ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Tabelpengajuan.setRowHeight(40);
+        Tabelpengajuan.getColumnModel().getColumn(0).setPreferredWidth(50);
+        Tabelpengajuan.getColumnModel().getColumn(1).setPreferredWidth(150);
+        Tabelpengajuan.getColumnModel().getColumn(2).setPreferredWidth(150);
+        Tabelpengajuan.getColumnModel().getColumn(3).setPreferredWidth(120);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
+
+    }//GEN-LAST:event_searchbarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,17 +419,20 @@ public class daftar_pengajuan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private template.CustomTabelPanel customTabelPanel2;
+    private javax.swing.JTable Tabelpengajuan;
     private template.RoundedButton daftar_pengajuan;
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private template.RoundedButton riwayat;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
     private template.RoundedButton roundedButton6;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;
+    private template.RoundedTextField searchbar;
     private template.RoundedButton verifikasi;
     // End of variables declaration//GEN-END:variables
 }

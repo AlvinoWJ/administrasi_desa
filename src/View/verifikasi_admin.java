@@ -4,19 +4,85 @@
  */
 package View;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.List;
+import database.suratDAO;  
+import database.koneksidatabase; 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import java.util.regex.Pattern;
+
+
 /**
  *
  * @author hp
  */
 public class verifikasi_admin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form daftar_pengajuan
-     */
+    private TableRowSorter<DefaultTableModel> sorter;
     public verifikasi_admin() {
         initComponents();
+        loadDataKeTabel("");
+        // Tambahkan listener hanya sekali di konstruktor
+        searchbar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { filter(); }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { filter(); }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { filter(); }
+
+            private void filter() {
+                String text = searchbar.getText().trim();
+                if (sorter != null) {
+                    if (text.isEmpty()) {
+                        sorter.setRowFilter(null);
+                    } else {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text), 0));
+                    }
+                }
+            }
+        });
         setSize(1540, 860);
-         setLocationRelativeTo(null); 
+        setLocationRelativeTo(null); 
+    }
+    
+    private void loadDataKeTabel(String keyword) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"ID Surat", "Nomor Surat", "Jenis Surat", "Status"});
+
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            List<suratDAO.SuratDataUmum> daftar = dao.getSuratPengajuan();
+
+            for (suratDAO.SuratDataUmum s : daftar) {
+                if (keyword == null || keyword.isEmpty() ||
+                    s.getNomorSurat().toLowerCase().contains(keyword.toLowerCase()) ||
+                    s.getJenisSurat().toLowerCase().contains(keyword.toLowerCase()) ||
+                    s.getstatusSurat().toLowerCase().contains(keyword.toLowerCase())) {
+
+                    model.addRow(new Object[]{
+                        s.getIdSurat(),
+                        s.getNomorSurat(),
+                        s.getJenisSurat(),
+                        s.getstatusSurat()
+                    });
+                }
+            }            
+            Tabelpengajuan.setModel(model);
+            sorter = new TableRowSorter<>(model);
+            Tabelpengajuan.setRowSorter(sorter);
+    
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengambil data!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -39,10 +105,14 @@ public class verifikasi_admin extends javax.swing.JFrame {
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        customTabelPanel2 = new template.CustomTabelPanel();
-        roundedPanel3 = new template.RoundedPanel();
-        accept = new javax.swing.JButton();
-        Decline = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabelpengajuan = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        detailArea = new javax.swing.JTextArea();
+        searchbar = new template.RoundedTextField();
+        Setujui = new javax.swing.JButton();
+        tolak = new javax.swing.JButton();
+        lihat_detail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -131,7 +201,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
-                .addContainerGap(207, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(roundedButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(roundedButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,45 +253,67 @@ public class verifikasi_admin extends javax.swing.JFrame {
             }
         });
 
-        roundedPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        Tabelpengajuan.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        Tabelpengajuan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        accept.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        accept.setForeground(new java.awt.Color(51, 153, 255));
-        accept.setText("Accept");
-        accept.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tabelpengajuan.setRowHeight(40);
+        jScrollPane2.setViewportView(Tabelpengajuan);
+
+        detailArea.setColumns(20);
+        detailArea.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        detailArea.setRows(5);
+        jScrollPane1.setViewportView(detailArea);
+
+        searchbar.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        searchbar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptActionPerformed(evt);
+                searchbarActionPerformed(evt);
             }
         });
 
-        Decline.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        Decline.setForeground(new java.awt.Color(51, 153, 255));
-        Decline.setText("Decline");
-        Decline.addActionListener(new java.awt.event.ActionListener() {
+        Setujui.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        Setujui.setForeground(new java.awt.Color(51, 153, 255));
+        Setujui.setText("SETUJUI");
+        Setujui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeclineActionPerformed(evt);
+                SetujuiActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
-        roundedPanel3.setLayout(roundedPanel3Layout);
-        roundedPanel3Layout.setHorizontalGroup(
-            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundedPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Decline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(accept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-        roundedPanel3Layout.setVerticalGroup(
-            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundedPanel3Layout.createSequentialGroup()
-                .addComponent(accept, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Decline, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
-        );
+        tolak.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        tolak.setForeground(new java.awt.Color(51, 153, 255));
+        tolak.setText("TOLAK");
+        tolak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tolakActionPerformed(evt);
+            }
+        });
+
+        lihat_detail.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        lihat_detail.setForeground(new java.awt.Color(51, 153, 255));
+        lihat_detail.setText("LIHAT DETAIL");
+        lihat_detail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihat_detailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -232,11 +324,19 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lihat_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(tolak, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(Setujui, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(25, 25, 25))))
@@ -249,14 +349,18 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(customTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Setujui)
+                    .addComponent(tolak)
+                    .addComponent(lihat_detail))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -269,8 +373,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,13 +419,86 @@ public class verifikasi_admin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_roundedButton1ActionPerformed
 
-    private void DeclineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeclineActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DeclineActionPerformed
+    private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
 
-    private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
+    }//GEN-LAST:event_searchbarActionPerformed
 
-    }//GEN-LAST:event_acceptActionPerformed
+    private void SetujuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetujuiActionPerformed
+        int selectedRow = Tabelpengajuan.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih baris terlebih dahulu!");
+            return;
+        }
+        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString();
+
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            dao.updateStatusSurat(nomorSurat, "Disetujui");
+
+            JOptionPane.showMessageDialog(this, "Surat disetujui!");
+            loadDataKeTabel(""); // Refresh tabel
+            detailArea.setText(""); // Kosongkan area detail
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui status!", "Error", JOptionPane.ERROR_MESSAGE);
+        }        
+    }//GEN-LAST:event_SetujuiActionPerformed
+
+    private void tolakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tolakActionPerformed
+        int selectedRow = Tabelpengajuan.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih baris terlebih dahulu!");
+            return;
+        }
+        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString();
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            dao.updateStatusSurat(nomorSurat, "Ditolak");
+
+            JOptionPane.showMessageDialog(this, "Surat ditolak!");
+            loadDataKeTabel(""); // Refresh tabel
+            detailArea.setText(""); // Kosongkan area detail
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui status!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_tolakActionPerformed
+
+    private void lihat_detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihat_detailActionPerformed
+        int selectedRow = Tabelpengajuan.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu baris dulu!");
+            return;
+        }
+        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString(); // Kolom ke-1: nomorSurat
+
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            List<suratDAO.SuratDataUmum> semuaSurat = dao.getAllSurat();
+
+            for (suratDAO.SuratDataUmum s : semuaSurat) {
+                if (s.getNomorSurat().equals(nomorSurat)) {
+                    detailArea.setText(
+                        "Nomor Surat: " + s.getNomorSurat() + "\n" +
+                        "Nama: " + s.getNama() + "\n" +
+                        "NIK: " + s.getNik() + "\n" +
+                        "TTL: " + s.gettempat_tanggal_lahir() + "\n" +
+                        "Alamat: " + s.getAlamat() + "\n" +
+                        "Jenis Surat: " + s.getJenisSurat() + "\n" +
+                        "Status: " + s.getstatusSurat()
+                    );
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memuat detail!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lihat_detailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,12 +537,15 @@ public class verifikasi_admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Decline;
-    private javax.swing.JButton accept;
-    private template.CustomTabelPanel customTabelPanel2;
+    private javax.swing.JButton Setujui;
+    private javax.swing.JTable Tabelpengajuan;
+    private javax.swing.JTextArea detailArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton lihat_detail;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
     private template.RoundedButton roundedButton3;
@@ -375,6 +554,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
     private template.RoundedButton roundedButton6;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;
-    private template.RoundedPanel roundedPanel3;
+    private template.RoundedTextField searchbar;
+    private javax.swing.JButton tolak;
     // End of variables declaration//GEN-END:variables
 }

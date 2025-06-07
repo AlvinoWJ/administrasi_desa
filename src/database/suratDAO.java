@@ -21,17 +21,25 @@ public class suratDAO {
         }
     }
 
-    // ✅ Ambil status surat berdasarkan nomor
-    public String getStatusSurat(String nomorSurat) throws SQLException {
-        String sql = "SELECT statusSurat FROM surat WHERE nomor_surat = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, nomorSurat);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) return rs.getString("statusSurat");
-            }
+    // Tambahkan method baru di suratDAO
+    public List<SuratDataUmum> getSuratPengajuan() throws SQLException {
+        List<SuratDataUmum> list = new ArrayList<>();
+        String query = "SELECT * FROM surat WHERE statusSurat = 'Diproses'";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+
+        while (rs.next()) {
+            SuratDataUmum surat = new SuratDataUmum(
+                rs.getInt("id_surat"),
+                rs.getString("nomor_surat"),
+                rs.getString("jenis_surat"),
+                rs.getString("statusSurat")
+            );
+            list.add(surat);
         }
-        return null;
+        return list;
     }
+
 
     // ✅ Ambil semua nomor surat berdasarkan status tertentu (misalnya: "Menunggu")
     public List<String> getNomorSuratDenganStatus(String status) throws SQLException {
@@ -104,6 +112,14 @@ public class suratDAO {
             this.jenisSurat = jenisSurat;
             this.statusSurat = statusSurat;
         }
+        
+        public SuratDataUmum(int idSurat, String nomorSurat, String jenisSurat, String statusSurat) {
+            this.idSurat = idSurat;
+            this.nomorSurat = nomorSurat;
+            this.jenisSurat = jenisSurat;
+            this.statusSurat = statusSurat;
+        }
+
 
         // Getter methods
         public int getIdSurat() { return idSurat; }

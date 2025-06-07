@@ -112,3 +112,4 @@ public class TabelAdmin extends JPanel {
         }
     }
 }
+ 
