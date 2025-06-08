@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.suratdomisili;            
 import database.suratdomisiliDAO;           
 import database.koneksidatabase;       
+import database.suratDAO;
 /**
  *
  * @author hp
@@ -354,52 +355,50 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         try {
-            // 1. Ambil data dari form
-            String namaValue = nama.getText();
-            String nikValue = nik.getText();
-            String ttlValue = ttl.getText();
-            String jenisKelaminValue = jeniskelamin.getText();
-            String agamaValue = agama.getText();
-            String pekerjaanValue = pekerjaan.getText();
-            String alamatValue = alamat.getText();
+        // 1. Ambil data dari form
+        String namaValue = nama.getText();
+        String nikValue = nik.getText();
+        String ttlValue = ttl.getText();
+        String jenisKelaminValue = jeniskelamin.getText();
+        String agamaValue = agama.getText();
+        String pekerjaanValue = pekerjaan.getText();
+        String alamatValue = alamat.getText();
 
-            if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
-                alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty() ||
-                alamatValue.isEmpty()) {
+        if (namaValue.isEmpty() || nikValue.isEmpty() || ttlValue.isEmpty() ||
+            alamatValue.isEmpty() || jenisKelaminValue.isEmpty() || agamaValue.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
+            return;
+        }
 
-                JOptionPane.showMessageDialog(this, "Semua kolom wajib diisi!");
-                return;
-            }
-                        
-            if (!nikValue.matches("\\d{16}")) {
+        if (!nikValue.matches("\\d{16}")) {
             JOptionPane.showMessageDialog(null, "NIK harus 16 digit angka.");
             return;
-            }
-                        
-            // 2. Buat objek suratdomisili
-            suratdomisili surat = new suratdomisili(
-                namaValue,
-                nikValue,
-                ttlValue,
-                jenisKelaminValue,
-                agamaValue,
-                pekerjaanValue,
-                alamatValue
-            );
+        }
 
-            // 3. Buat koneksi ke database
-            Connection conn = koneksidatabase.getConnection();
+        // 2. Buat objek suratdomisili
+        suratdomisili surat = new suratdomisili(
+            namaValue,
+            nikValue,
+            ttlValue,
+            jenisKelaminValue,
+            agamaValue,
+            pekerjaanValue,
+            alamatValue
+        );
 
-            // 4. Buat objek DAO dan simpan data
-            suratdomisiliDAO dao = new suratdomisiliDAO(conn);
-            dao.insert(surat);
+        // 3. Koneksi ke database
+        Connection conn = koneksidatabase.getConnection();
 
-            // 5. Tampilkan pesan sukses
-            JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+        // 4. Simpan data ke database (tabel surat + surat_domisili)
+        suratdomisiliDAO daoDomisili = new suratdomisiliDAO(conn);
+        daoDomisili.insert(surat);
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());
-        }      
+        // 5. Tampilkan pesan sukses
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());
+        ex.printStackTrace();
+    }      
     }//GEN-LAST:event_submitActionPerformed
 
     private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed

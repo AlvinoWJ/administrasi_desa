@@ -14,57 +14,58 @@ public class suratmenikahDAO {
 
     // Insert data ke tabel surat & surat_menikah
     public void insert(suratmenikah surat) throws SQLException {
-        String insertSuratSQL = "INSERT INTO surat (nama, nik, tempat_tanggal_lahir, alamat, jenis_surat) " +
-                                "VALUES (?, ?, ?, ?, ?)";
-        String updatenomorSuratSQL = "UPDATE surat SET nomor_surat = ? WHERE id_surat = ?";
-        String insertMenikahSQL = "INSERT INTO surat_menikah (id_surat, nama_pasangan, jenis_kelamin, agama, status, kewarganegaraan, kewarganegaraan_pasangan) " +
-                                  "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (
-            PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement stmt2 = connection.prepareStatement(updatenomorSuratSQL);
-            PreparedStatement stmt3 = connection.prepareStatement(insertMenikahSQL)
-        ) {
-            connection.setAutoCommit(false);
-            stmt1.setString(1, surat.getNama());
-            stmt1.setString(2, surat.getNik());
-            stmt1.setString(3, surat.getTempatTanggalLahir());
-            stmt1.setString(4, surat.getAlamat());
-            stmt1.setString(5, surat.getJenisSurat());
-            stmt1.executeUpdate();
+    String insertSuratSQL = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat, statusSurat) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String insertMenikahSQL = "INSERT INTO surat_menikah (id_surat, nama_pasangan, jenis_kelamin, agama, status, kewarganegaraan, kewarganegaraan_pasangan) " +
+                              "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            // Ambil id_surat yang baru di-generate
-            ResultSet generatedKeys = stmt1.getGeneratedKeys();
-            if (!generatedKeys.next()) throw new SQLException("Gagal mengambil ID surat.");
-            int idSurat = generatedKeys.getInt(1);
+    try (
+        PreparedStatement stmt1 = connection.prepareStatement(insertSuratSQL, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement stmt2 = connection.prepareStatement(insertMenikahSQL)
+    ) {
+        connection.setAutoCommit(false);
 
-            String kode = switch(surat.getJenisSurat()) {
-                case "Surat Keterangan Menikah" -> "suketmenikah";
-                default -> "lainnya";
-            };
-            String nomorSurat = "XXI-" + idSurat + "/" + kode + "/" + java.time.Year.now().getValue();
+        // Buat nomor surat unik
+        String kode = switch (surat.getJenisSurat()) {
+            case "Surat Keterangan Menikah" -> "suketmenikah";
+            default -> "lainnya";
+        };
+        String nomorSurat = "XXI-" + System.currentTimeMillis() + "/" + kode + "/" + java.time.Year.now().getValue();
 
-            stmt2.setString(1, nomorSurat);
-            stmt2.setInt(2, idSurat);
-            stmt2.executeUpdate();
-            
-            // Simpan ke surat_menikah
-            stmt3.setInt(1, idSurat);
-            stmt3.setString(2, surat.getNamaPasangan());
-            stmt3.setString(3, surat.getJenisKelamin());
-            stmt3.setString(4, surat.getAgama());
-            stmt3.setString(5, surat.getStatus());
-            stmt3.setString(6, surat.getKewarganegaraan());
-            stmt3.setString(7, surat.getKewarganegaraanPasangan());
-            stmt3.executeUpdate();
+        // Insert ke tabel surat
+        stmt1.setString(1, nomorSurat);
+        stmt1.setString(2, surat.getNama());
+        stmt1.setString(3, surat.getNik());
+        stmt1.setString(4, surat.getTempatTanggalLahir());
+        stmt1.setString(5, surat.getAlamat());
+        stmt1.setString(6, surat.getJenisSurat());
+        stmt1.setString(7, "menunggu");
+        stmt1.executeUpdate();
 
-            connection.commit();
-        } catch (SQLException e) {
-            connection.rollback();
-            throw e;
-        } finally {
-            connection.setAutoCommit(true);
-        }
+        // Ambil ID surat
+        ResultSet generatedKeys = stmt1.getGeneratedKeys();
+        if (!generatedKeys.next()) throw new SQLException("Gagal mengambil ID surat.");
+        int idSurat = generatedKeys.getInt(1);
+
+        // Insert ke tabel surat_menikah
+        stmt2.setInt(1, idSurat);
+        stmt2.setString(2, surat.getNamaPasangan());
+        stmt2.setString(3, surat.getJenisKelamin());
+        stmt2.setString(4, surat.getAgama());
+        stmt2.setString(5, surat.getStatus());
+        stmt2.setString(6, surat.getKewarganegaraan());
+        stmt2.setString(7, surat.getKewarganegaraanPasangan());
+        stmt2.executeUpdate();
+
+        connection.commit();
+    } catch (SQLException e) {
+        connection.rollback();
+        throw e;
+    } finally {
+        connection.setAutoCommit(true);
     }
+}
+
 
     // Ambil berdasarkan nomor surat
     public suratmenikah getByNomorSurat(String nomorSurat) throws SQLException {

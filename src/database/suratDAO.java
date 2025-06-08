@@ -10,7 +10,24 @@ public class suratDAO {
     public suratDAO(Connection connection) {
         this.connection = connection;
     }
+    
+    public void insertSurat(String nomorSurat, String nama, String nik, String ttl, String alamat, String jenisSurat) throws SQLException {
+    String statusSurat = "Menunggu"; // default
+    String sql = "INSERT INTO surat (nomor_surat, nama, nik, tempat_tanggal_lahir, alamat, jenis_surat, statusSurat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, nomorSurat);
+        stmt.setString(2, nama);
+        stmt.setString(3, nik);
+        stmt.setString(4, ttl);
+        stmt.setString(5, alamat);
+        stmt.setString(6, jenisSurat);
+        stmt.setString(7, statusSurat);
+        stmt.executeUpdate();
+    }
+}
 
+
+    
     // ✅ Update status surat (oleh admin)
     public void updateStatusSurat(String nomorSurat, String statusBaru) throws SQLException {
         String sql = "UPDATE surat SET statusSurat = ? WHERE nomor_surat = ?";
@@ -24,7 +41,7 @@ public class suratDAO {
     // Tambahkan method baru di suratDAO
     public List<SuratDataUmum> getSuratPengajuan() throws SQLException {
         List<SuratDataUmum> list = new ArrayList<>();
-        String query = "SELECT * FROM surat WHERE statusSurat = 'Diproses'";
+        String query = "SELECT * FROM surat WHERE statusSurat IN ('Menunggu', 'Diproses')";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
@@ -78,6 +95,71 @@ public class suratDAO {
         }
         return list;
     }
+    
+        // ✅ Ambil semua data surat berdasarkan status tertentu
+    public List<SuratDataUmum> getSuratByStatus(String status) throws SQLException {
+        List<SuratDataUmum> list = new ArrayList<>();
+        String sql = "SELECT * FROM surat WHERE statusSurat = ? ORDER BY id_surat DESC";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, status);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    SuratDataUmum surat = new SuratDataUmum(
+                        rs.getInt("id_surat"),
+                        rs.getString("nomor_surat"),
+                        rs.getString("nama"),
+                        rs.getString("nik"),
+                        rs.getString("tempat_tanggal_lahir"),
+                        rs.getString("alamat"),
+                        rs.getString("jenis_surat"),
+                        rs.getString("statusSurat")
+                    );
+                    list.add(surat);
+                }
+            }
+        }
+    return list;
+}
+    public List<SuratDataUmum> getSuratRiwayat() throws SQLException {
+    List<SuratDataUmum> list = new ArrayList<>();
+    String sql = "SELECT * FROM surat WHERE statusSurat IN ('Disetujui', 'Ditolak')";
+    try (PreparedStatement stmt = connection.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            SuratDataUmum surat = new SuratDataUmum(
+                rs.getInt("id_surat"),
+                rs.getString("nomor_surat"),
+                rs.getString("nama"),
+                rs.getString("nik"),
+                rs.getString("tempat_tanggal_lahir"),
+                rs.getString("alamat"),
+                rs.getString("jenis_surat"),
+                rs.getString("statusSurat")
+            );
+            list.add(surat);
+        }
+    }
+    return list;
+}
+    
+    public List<SuratDataUmum> getSuratBelumDiverifikasi() throws SQLException {
+    List<SuratDataUmum> list = new ArrayList<>();
+    String query = "SELECT * FROM surat WHERE statusSurat = 'menunggu'";
+    Statement stmt = connection.createStatement();
+    ResultSet rs = stmt.executeQuery(query);
+
+    while (rs.next()) {
+        SuratDataUmum surat = new SuratDataUmum(
+            rs.getInt("id_surat"),
+            rs.getString("nomor_surat"),
+            rs.getString("jenis_surat"),
+            rs.getString("statusSurat")
+        );
+        list.add(surat);
+    }
+    return list;
+}
+
 
     // ✅ Cek apakah surat dengan nomor tertentu ada
     public boolean suratExists(String nomorSurat) throws SQLException {

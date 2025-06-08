@@ -4,9 +4,14 @@
  */
 package View;
 
+import java.sql.Connection;
 import database.koneksidatabase;
 import database.suratDAO;
 import database.suratDAO.SuratDataUmum;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 
 /**
@@ -19,11 +24,45 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
      * Creates new form daftar_pengajuan
      */
     public riwayat_pembuatan() {
-        initComponents();
-        setSize(1540, 860);
-         setLocationRelativeTo(null); 
-    }
+    initComponents();
+    setSize(1540, 860);
+    setLocationRelativeTo(null); 
 
+    try {
+    Connection conn = koneksidatabase.getConnection();
+    suratDAO dao = new suratDAO(conn);
+    List<SuratDataUmum> data = dao.getSuratRiwayat();
+
+    String[] columnNames = {
+        "ID Surat", 
+        "Nomor Surat", 
+        "Nama", 
+        "NIK", 
+        "Tempat, Tanggal Lahir", 
+        "Alamat", 
+        "Jenis Surat", 
+        "Status Surat"
+    };
+    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+    Tabelpengajuan.setModel(model);
+
+    for (SuratDataUmum surat : data) {
+        model.addRow(new Object[]{
+            surat.getIdSurat(),
+            surat.getNomorSurat(),
+            surat.getNama(),
+            surat.getNik(),
+            surat.gettempat_tanggal_lahir(),
+            surat.getAlamat(),
+            surat.getJenisSurat(),
+            surat.getstatusSurat()
+        });
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Gagal memuat data riwayat.\n" + e.getMessage());
+}
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +83,11 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        searchbar = new template.RoundedTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabelpengajuan = new javax.swing.JTable();
+        lihat_detail = new javax.swing.JButton();
+        detailArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -184,6 +228,48 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             }
         });
 
+        searchbar.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        searchbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbarActionPerformed(evt);
+            }
+        });
+
+        Tabelpengajuan.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        Tabelpengajuan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(Tabelpengajuan);
+
+        lihat_detail.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        lihat_detail.setForeground(new java.awt.Color(51, 153, 255));
+        lihat_detail.setText("LIHAT DETAIL");
+        lihat_detail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihat_detailActionPerformed(evt);
+            }
+        });
+
+        detailArea.setColumns(20);
+        detailArea.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        detailArea.setRows(5);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,10 +277,20 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lihat_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(detailArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +300,15 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(lihat_detail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(detailArea, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,6 +365,43 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_roundedButton1ActionPerformed
 
+    private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
+
+    }//GEN-LAST:event_searchbarActionPerformed
+
+    private void lihat_detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihat_detailActionPerformed
+        int selectedRow = Tabelpengajuan.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih salah satu baris dulu!");
+            return;
+        }
+        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString(); // Kolom ke-1: nomorSurat
+
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            suratDAO dao = new suratDAO(conn);
+            List<suratDAO.SuratDataUmum> semuaSurat = dao.getAllSurat();
+
+            for (suratDAO.SuratDataUmum s : semuaSurat) {
+                if (s.getNomorSurat().equals(nomorSurat)) {
+                    detailArea.setText(
+                        "Nomor Surat: " + s.getNomorSurat() + "\n" +
+                        "Nama: " + s.getNama() + "\n" +
+                        "NIK: " + s.getNik() + "\n" +
+                        "TTL: " + s.gettempat_tanggal_lahir() + "\n" +
+                        "Alamat: " + s.getAlamat() + "\n" +
+                        "Jenis Surat: " + s.getJenisSurat() + "\n" +
+                        "Status: " + s.getstatusSurat()
+                    );
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memuat detail!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lihat_detailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,16 +439,23 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabelpengajuan;
     private template.RoundedButton daftar_pengajuan;
+    private javax.swing.JTextArea detailArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton lihat_detail;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
     private template.RoundedButton roundedButton5;
     private template.RoundedButton roundedButton6;
     private template.RoundedPanel roundedPanel1;
     private template.RoundedPanel roundedPanel2;
+    private template.RoundedTextField searchbar;
     private template.RoundedButton verifikasi;
     // End of variables declaration//GEN-END:variables
+
+   
 }

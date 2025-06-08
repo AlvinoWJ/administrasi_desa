@@ -25,7 +25,7 @@ public class dashboard_admin extends javax.swing.JFrame {
         try {
             Connection conn = koneksidatabase.getConnection();
             suratDAO dao = new suratDAO(conn);
-            List<suratDAO.SuratDataUmum> data = dao.getAllSurat();
+            List<suratDAO.SuratDataUmum> data = dao.getSuratPengajuan();
 
             String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
             Object[][] rowData = new Object[data.size()][columnNames.length];
@@ -40,26 +40,40 @@ public class dashboard_admin extends javax.swing.JFrame {
             javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(rowData, columnNames);
             this.Tabelpengajuan.setModel(tableModel);
             
-            // == TABEL VERIFIKASI (FILTER statusSurat) ==
-            List<suratDAO.SuratDataUmum> verifikasiData = new ArrayList<>();
-            for (suratDAO.SuratDataUmum sdu : data) {
-                if ("Diproses".equalsIgnoreCase(sdu.getstatusSurat())) {
-                    verifikasiData.add(sdu);
-                }
+            // == TABEL RIWAYAT (status = Disetujui atau Ditolak) ==
+            List<suratDAO.SuratDataUmum> riwayatData = dao.getSuratRiwayat();
+
+            String[] columnNames3 = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            Object[][] rowData3 = new Object[riwayatData.size()][columnNames3.length];
+            for (int i = 0; i < riwayatData.size(); i++) {
+                suratDAO.SuratDataUmum sdu = riwayatData.get(i);
+                rowData3[i][0] = sdu.getIdSurat();
+                rowData3[i][1] = sdu.getNomorSurat();
+                rowData3[i][2] = sdu.getJenisSurat();
+                rowData3[i][3] = sdu.getstatusSurat();
             }
 
-            String[] columnNames2 = {"nomor_surat", "jenis_surat", "statusSurat"};
-            Object[][] rowData2 = new Object[verifikasiData.size()][columnNames2.length];
-            for (int i = 0; i < verifikasiData.size(); i++) {
-                suratDAO.SuratDataUmum sdu = verifikasiData.get(i);
-                rowData2[i][0] = sdu.getNomorSurat();
-                rowData2[i][1] = sdu.getJenisSurat();
-                rowData2[i][2] = sdu.getstatusSurat();
+            javax.swing.table.DefaultTableModel modelRiwayat = new javax.swing.table.DefaultTableModel(rowData3, columnNames3);
+            this.TabelPengajuanSelesai.setModel(modelRiwayat);  // pastikan nama Tabel benar sesuai GUI
+            
+            // == TABEL BELUM DIVERIFIKASI (status = Diproses) ==
+            List<suratDAO.SuratDataUmum> dataVerifikasi = dao.getSuratBelumDiverifikasi();
+
+            String[] columnNames2 = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            Object[][] rowData2 = new Object[dataVerifikasi.size()][columnNames2.length];
+            for (int i = 0; i < dataVerifikasi.size(); i++) {
+                suratDAO.SuratDataUmum sdu = dataVerifikasi.get(i);
+                rowData2[i][0] = sdu.getIdSurat();
+                rowData2[i][1] = sdu.getNomorSurat();
+                rowData2[i][2] = sdu.getJenisSurat();
+                rowData2[i][3] = sdu.getstatusSurat();
             }
 
             javax.swing.table.DefaultTableModel modelVerifikasi = new javax.swing.table.DefaultTableModel(rowData2, columnNames2);
             this.TabelVerifikasi.setModel(modelVerifikasi);
-        
+
+
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Gagal memuat data: " + ex.getMessage());
         }
@@ -85,7 +99,7 @@ public class dashboard_admin extends javax.swing.JFrame {
         roundedPanel2 = new template.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        TabelPengajuanSelesai = new javax.swing.JTable();
         roundedPanel4 = new template.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -173,7 +187,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        TabelPengajuanSelesai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -184,7 +198,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(TabelPengajuanSelesai);
 
         roundedPanel4.setBackground(new java.awt.Color(51, 153, 255));
         roundedPanel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -551,6 +565,7 @@ public class dashboard_admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelPengajuanSelesai;
     private javax.swing.JTable TabelVerifikasi;
     private javax.swing.JTable Tabelpengajuan;
     private javax.swing.JButton jButton1;
@@ -561,7 +576,6 @@ public class dashboard_admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
     private template.RoundedButton roundedButton1;
     private template.RoundedButton roundedButton2;
     private template.RoundedButton roundedButton3;

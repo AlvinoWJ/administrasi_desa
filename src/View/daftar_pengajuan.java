@@ -28,7 +28,8 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         try {
             Connection conn = koneksidatabase.getConnection();
             suratDAO dao = new suratDAO(conn);
-            List<suratDAO.SuratDataUmum> data = dao.getAllSurat();
+            List<suratDAO.SuratDataUmum> data = dao.getSuratByStatus("Menunggu");
+
 
             String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
             Object[][] rowData = new Object[data.size()][columnNames.length];
