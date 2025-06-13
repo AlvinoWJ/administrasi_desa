@@ -25,8 +25,6 @@ public class suratDAO {
         stmt.executeUpdate();
     }
 }
-
-
     
     // ✅ Update status surat (oleh admin)
     public void updateStatusSurat(String nomorSurat, String statusBaru) throws SQLException {
@@ -171,7 +169,29 @@ public class suratDAO {
             }
         }
     }
-
+    
+    public SuratDataUmum getSuratByNomor(String nomorSurat) throws SQLException {
+    String sql = "SELECT * FROM surat WHERE nomor_surat = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, nomorSurat);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new SuratDataUmum(
+                    rs.getInt("id_surat"),
+                    rs.getString("nomor_surat"),
+                    rs.getString("nama"),
+                    rs.getString("nik"),
+                    rs.getString("tempat_tanggal_lahir"),
+                    rs.getString("alamat"),
+                    rs.getString("jenis_surat"),
+                    rs.getString("statusSurat")
+                );
+            }
+        }
+    }
+    return null;
+}
+    
     // Inner class opsional sebagai DTO sederhana
     public static class SuratDataUmum {
         private int idSurat;
@@ -202,7 +222,7 @@ public class suratDAO {
             this.statusSurat = statusSurat;
         }
 
-
+        
         // Getter methods
         public int getIdSurat() { return idSurat; }
         public String getNomorSurat() { return nomorSurat; }

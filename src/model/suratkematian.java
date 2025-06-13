@@ -9,7 +9,9 @@ public class suratkematian extends surat {
     private String sebabKematian;
     private String yangMenerangkanKematian;
     private String tempatKematian;
-   
+    private String kewarganegaraan;
+    private String namaPemohon;
+    
     public suratkematian(String nama, String nik, String tempatTanggalLahir,
                     String alamat, String jenisKelamin, String Pekerjaan, 
                     String agama, String hariTanggalMeninggal, String jamMeninggal,
@@ -48,6 +50,10 @@ public class suratkematian extends surat {
 
     public String getTempatKematian() { return tempatKematian; }
     public void setTempatKematian(String tempatKematian) { this.tempatKematian = tempatKematian; }
+
+    public String getNamaPemohon() {
+    return this.yangMenerangkanKematian;}
+
     
     @Override
     public String getJenisSurat() {return "Surat Keterangan Kematian";}

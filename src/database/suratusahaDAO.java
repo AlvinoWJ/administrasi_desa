@@ -90,4 +90,40 @@ public class suratusahaDAO {
         }
         return list;
     }
+    
+    public suratusaha getByNomorSurat(String nomorSurat) throws SQLException {
+    String sql = """
+    SELECT s.*, u.*
+    FROM surat s
+    JOIN surat_usaha u ON s.id_surat = u.id_surat
+    WHERE s.nomor_surat = ? AND s.jenis_surat = 'Surat Keterangan Usaha'
+    """;
+
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, nomorSurat);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                suratusaha surat = new suratusaha(
+                    rs.getString("nama"),
+                    rs.getString("nik"),
+                    rs.getString("tempat_tanggal_lahir"),
+                    rs.getString("alamat"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("agama"),
+                    rs.getString("status_perkawinan"),
+                    rs.getString("nama_usaha"),
+                    rs.getString("jenis_usaha"),
+                    rs.getString("alamat_usaha")
+                );
+
+                surat.setNomorSurat(rs.getString("nomor_surat"));
+                return surat;
+            } else {
+                return null;
+            }
+        }
+    }
+}
+
 }

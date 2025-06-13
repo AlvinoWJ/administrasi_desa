@@ -17,6 +17,25 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import java.util.regex.Pattern;
 
+import java.util.HashMap;
+import java.util.Map; 
+import utils.PDFGenerator;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import database.suratdomisiliDAO;
+import model.suratdomisili;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import database.suratusahaDAO;
+import model.suratusaha;
+import database.suratmenikahDAO;
+import model.suratmenikah;
+import database.suratkematianDAO;
+import model.suratkematian;
+
+
+
 
 /**
  *
@@ -424,25 +443,186 @@ public class verifikasi_admin extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbarActionPerformed
 
     private void SetujuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetujuiActionPerformed
-        int selectedRow = Tabelpengajuan.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih baris terlebih dahulu!");
-            return;
-        }
-        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString();
+    System.out.println("🟢 METHOD SetujuiActionPerformed DIPANGGIL");
+    int selectedRow = Tabelpengajuan.getSelectedRow();
+if (selectedRow == -1) {
+    JOptionPane.showMessageDialog(this, "Pilih baris terlebih dahulu!");
+    return;
+}
 
-        try {
-            Connection conn = koneksidatabase.getConnection();
-            suratDAO dao = new suratDAO(conn);
-            dao.updateStatusSurat(nomorSurat, "Disetujui");
+try {
+    String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString();
+    String jenisSuratText = Tabelpengajuan.getValueAt(selectedRow, 2).toString().toLowerCase().trim();
 
-            JOptionPane.showMessageDialog(this, "Surat disetujui!");
-            loadDataKeTabel(""); // Refresh tabel
-            detailArea.setText(""); // Kosongkan area detail
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Gagal memperbarui status!", "Error", JOptionPane.ERROR_MESSAGE);
-        }        
+    System.out.println("📌 Nomor surat: " + nomorSurat);
+    System.out.println("📌 Jenis surat: " + jenisSuratText);
+
+    // Koneksi dan update status
+    Connection conn = koneksidatabase.getConnection();
+    suratDAO dao = new suratDAO(conn);
+    dao.updateStatusSurat(nomorSurat, "Disetujui");
+
+    // Ambil data umum dari tabel surat
+    suratDAO.SuratDataUmum surat = dao.getSuratByNomor(nomorSurat);
+
+    // Siapkan data untuk template
+    Map<String, String> data = new HashMap<>();
+    data.put("nomor_surat", surat.getNomorSurat());
+    data.put("nama", surat.getNama());
+    data.put("nik", surat.getNik());
+    data.put("alamat", surat.getAlamat());
+    data.put("jenis_surat", surat.getJenisSurat());
+    
+    if (jenisSuratText.equals("surat keterangan domisili")) {
+    suratdomisiliDAO domisiliDAO = new suratdomisiliDAO(conn);
+    suratdomisili detail = domisiliDAO.getByNomorSurat(nomorSurat);
+
+    if (detail != null) {
+        data.put("jenis_kelamin", detail.getJenisKelamin());
+        data.put("tempat_tanggal_lahir", detail.getTempatTanggalLahir());
+        data.put("agama", detail.getAgama());
+        data.put("pekerjaan", detail.getPekerjaan());
+        data.put("tanggal", new SimpleDateFormat("dd MMMM yyyy").format(new Date()));
+    } else {
+        JOptionPane.showMessageDialog(this, "Data detail domisili tidak ditemukan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+}
+
+    
+    if (jenisSuratText.equals("surat keterangan usaha")) {
+    suratusahaDAO usahaDAO = new suratusahaDAO(conn);
+    suratusaha detail = usahaDAO.getByNomorSurat(nomorSurat);
+
+    if (detail != null) {
+        data.put("jenis_kelamin", detail.getJenisKelamin());
+        data.put("tempat_tanggal_lahir", detail.getTempatTanggalLahir());
+        data.put("agama", detail.getAgama());
+        data.put("status_perkawinan", detail.getStatusPerkawinan());
+        data.put("nama_usaha", detail.getNamaUsaha());
+        data.put("jenis_usaha", detail.getJenisUsaha());
+        data.put("alamat_usaha", detail.getAlamatUsaha());
+
+        // Tanggal
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        String tanggalSekarang = sdf.format(new Date());
+        data.put("tanggal", tanggalSekarang);
+
+    } else {
+        JOptionPane.showMessageDialog(this, "Data detail usaha tidak ditemukan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+}
+    
+    if (jenisSuratText.equals("surat keterangan menikah")) {
+    suratmenikahDAO menikahDAO = new suratmenikahDAO(conn);
+    suratmenikah detail = menikahDAO.getByNomorSurat(nomorSurat);
+
+    if (detail != null) {
+        data.put("jenis_kelamin", detail.getJenisKelamin());
+        data.put("tempat_tanggal_lahir", detail.getTempatTanggalLahir());
+        data.put("agama", detail.getAgama());
+        data.put("status_perkawinan", detail.getStatus());
+        data.put("kewarganegaraan", detail.getKewarganegaraan());
+        data.put("nama_pasangan", detail.getNamaPasangan());
+        data.put("kewarganegaraan_pasangan", detail.getKewarganegaraanPasangan());
+
+        // Tanggal
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        String tanggalSekarang = sdf.format(new Date());
+        data.put("tanggal", tanggalSekarang);
+
+    } else {
+        JOptionPane.showMessageDialog(this, "Data detail menikah tidak ditemukan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+}
+    
+    if (jenisSuratText.equals("surat keterangan kematian")) {
+    suratkematianDAO kematianDAO = new suratkematianDAO(conn);
+    suratkematian detail = kematianDAO.getByNomorSurat(nomorSurat);
+
+    if (detail != null) {
+        data.put("jenis_kelamin", detail.getJenisKelamin());
+        data.put("tempat_tanggal_lahir", detail.getTempatTanggalLahir());
+        data.put("agama", detail.getAgama());
+        data.put("pekerjaan", detail.getPekerjaan());
+        data.put("tanggal_meninggal", detail.getHariTanggalMeninggal());
+        data.put("jam_meninggal", detail.getJamMeninggal());
+        data.put("penyebab", detail.getSebabKematian());
+        data.put("tempat_meninggal", detail.getTempatKematian());
+        data.put("nama_pemohon", detail.getYangMenerangkanKematian()); // atau bisa pakai field lain sesuai kebutuhan
+
+
+        // Tanggal surat dibuat
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        String tanggalSekarang = sdf.format(new Date());
+        data.put("tanggal", tanggalSekarang);
+    } else {
+        JOptionPane.showMessageDialog(this, "Data detail kematian tidak ditemukan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+}
+
+    // Tentukan file template
+    String templateFileName;
+    switch (jenisSuratText) {
+        case "surat keterangan domisili":
+            templateFileName = "Domisili.html";
+            break;
+        case "surat keterangan kematian":
+            templateFileName = "kematian.html";
+            break;
+        case "surat keterangan menikah":
+            templateFileName = "menikah.html";
+            break;
+        case "surat keterangan usaha":
+            templateFileName = "usaha.html";
+            break;
+        default:
+            templateFileName = jenisSuratText + ".html";
+            break;
+    }
+
+    File templateFile = new File("src/utils/" + templateFileName);
+    String templatePath = templateFile.getAbsolutePath();
+
+    if (!templateFile.exists()) {
+        JOptionPane.showMessageDialog(this, "❌ Template tidak ditemukan:\n" + templatePath,
+                "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Siapkan folder output
+    String outputDir = "output";
+    File outputFolder = new File(outputDir);
+    if (!outputFolder.exists()) outputFolder.mkdirs();
+
+    String outputPath = outputDir + "/surat_" +
+            surat.getNomorSurat().replaceAll("[^a-zA-Z0-9]", "_") + ".pdf";
+
+    System.out.println("🖨️ Output path: " + outputPath);
+    System.out.println("🚀 Memanggil PDFGenerator.generateFromHtml");
+
+    // Generate PDF dari template dan data
+    PDFGenerator.generateFromHtml(templatePath, outputPath, data);
+
+    System.out.println("✅ PDF berhasil dicetak!");
+    JOptionPane.showMessageDialog(this,
+            "Surat disetujui dan dicetak sebagai PDF!\nFile disimpan di: " + outputPath);
+
+    // Refresh tampilan UI
+    loadDataKeTabel("");
+    detailArea.setText("");
+
+} catch (Exception e) {
+    System.err.println("❌ ERROR saat mencetak surat:");
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this,
+            "Gagal menyetujui atau mencetak surat!\n" + e.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_SetujuiActionPerformed
 
     private void tolakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tolakActionPerformed
@@ -557,4 +737,10 @@ public class verifikasi_admin extends javax.swing.JFrame {
     private template.RoundedTextField searchbar;
     private javax.swing.JButton tolak;
     // End of variables declaration//GEN-END:variables
+
+    private static class SuratModel {
+
+        public SuratModel() {
+        }
+    }
 }
