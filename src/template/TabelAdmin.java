@@ -54,7 +54,7 @@ public class TabelAdmin extends JPanel {
         topPanel.add(deleteButton);
 
         // Tabel dan model
-        tableModel = new DefaultTableModel(new String[]{"Username", "Password"}, 0) {
+        tableModel = new DefaultTableModel(new String[]{"No", "Username", "Password"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -66,7 +66,9 @@ public class TabelAdmin extends JPanel {
         table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
 
         rowSorter = new TableRowSorter<>(tableModel);
+        rowSorter.setSortable(0, false); // kolom No tidak disortir
         table.setRowSorter(rowSorter);
+
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
@@ -105,11 +107,13 @@ public class TabelAdmin extends JPanel {
         return deleteButton;
     }
 
-    public void setTableData(List<String[]> data) {
-        tableModel.setRowCount(0);
-        for (String[] row : data) {
-            tableModel.addRow(row);
-        }
+    public void setTableData(List<Object[]> data) {
+    tableModel.setRowCount(0); // clear data sebelumnya
+    for (Object[] row : data) {
+        tableModel.addRow(row); // tambahkan baris ke tabel
     }
+}
+
+
 }
  

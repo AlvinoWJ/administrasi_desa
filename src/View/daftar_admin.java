@@ -9,7 +9,8 @@ import database.koneksidatabase;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
-import template.TabelAdmin;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,44 +19,31 @@ import template.TabelAdmin;
 public class daftar_admin extends javax.swing.JFrame {
 
     public daftar_admin() {
-        initComponents();
+        initComponents(); // komponen GUI
         setSize(1540, 860);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); 
+        loadDataAdmin(); 
+    }
 
+    // Method untuk me-refresh data admin
+    private void loadDataAdmin() {
         try {
-            // Buat koneksi dan DAO
             Connection conn = koneksidatabase.getConnection();
             adminDAO dao = new adminDAO(conn);
+            List<String[]> listAdmin = dao.getAllAdmins();
 
-            // Buat panel dan isi tabel
-            TabelAdmin panelAdmin = new TabelAdmin();
-            panelAdmin.setTableData(dao.getAllAdmins());
+            String[] columnNames = { "No", "Username", "Waktu Pembuatan" };
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-            // Tombol hapus
-            panelAdmin.getDeleteButton().addActionListener(e -> {
-                int selected = panelAdmin.getTable().getSelectedRow();
-                if (selected >= 0) {
-                    String username = (String) panelAdmin.getTableModel().getValueAt(selected, 0);
-                    int confirm = JOptionPane.showConfirmDialog(null,
-                            "Hapus admin \"" + username + "\"?",
-                            "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        if (dao.hapusAdmin(username)) {
-                            JOptionPane.showMessageDialog(null, "Admin dihapus");
-                            panelAdmin.setTableData(dao.getAllAdmins()); // Refresh data
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Gagal menghapus admin");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Pilih admin terlebih dahulu");
-                }
-            });
+            int no = 1;
+            for (String[] admin : listAdmin) {
+                model.addRow(new Object[]{ no++, admin[0], admin[1] });
+            }
 
-            // Tampilkan ke frame
-            getContentPane().add(panelAdmin);
+            Tabeldaftaradmin.setModel(model);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menghubungkan ke database");
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal memuat data admin.");
         }
     }
 
@@ -89,7 +77,10 @@ public class daftar_admin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
-        tabelAdmin = new template.TabelAdmin();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabeldaftaradmin = new javax.swing.JTable();
+        searchbar = new template.RoundedTextField();
+        hapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -316,27 +307,81 @@ public class daftar_admin extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
         );
 
+        Tabeldaftaradmin.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        Tabeldaftaradmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tabeldaftaradmin.setRowHeight(40);
+        jScrollPane2.setViewportView(Tabeldaftaradmin);
+
+        searchbar.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        searchbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbarActionPerformed(evt);
+            }
+        });
+
+        hapus.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
+        hapus.setForeground(new java.awt.Color(51, 153, 255));
+        hapus.setText("HAPUS");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
         roundedPanel3.setLayout(roundedPanel3Layout);
         roundedPanel3Layout.setHorizontalGroup(
             roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel3Layout.createSequentialGroup()
+            .addGroup(roundedPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roundedPanel3Layout.createSequentialGroup()
+                        .addGap(0, 875, Short.MAX_VALUE)
+                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundedPanel3Layout.createSequentialGroup()
+                        .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(roundedPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(401, Short.MAX_VALUE)))
         );
         roundedPanel3Layout.setVerticalGroup(
             roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel3Layout.createSequentialGroup()
-                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundedPanel3Layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundedPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(tabelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hapus))
+                .addGap(75, 75, 75)
+                .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 226, Short.MAX_VALUE))
+            .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel3Layout.createSequentialGroup()
+                    .addContainerGap(86, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(18, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -434,7 +479,7 @@ public class daftar_admin extends javax.swing.JFrame {
 
             if (dao.tambahAdmin(user, pass)) {
                 JOptionPane.showMessageDialog(this, "Admin berhasil didaftarkan!");
-
+                loadDataAdmin();
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal mendaftarkan admin.");
             }
@@ -450,6 +495,43 @@ public class daftar_admin extends javax.swing.JFrame {
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchbarActionPerformed
+
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        int selectedRow = Tabeldaftaradmin.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih akun admin yang ingin dihapus!");
+            return;
+        }
+
+        String Username = Tabeldaftaradmin.getValueAt(selectedRow, 1).toString(); 
+
+        int konfirmasi = JOptionPane.showConfirmDialog(this,
+                "Apakah Anda yakin ingin menghapus akun admin dengan username: " + Username + "?",
+                "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            try {
+                Connection conn = koneksidatabase.getConnection();
+                adminDAO dao = new adminDAO(conn);
+                boolean success = dao.hapusAdmin(Username);
+
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Akun admin berhasil dihapus!");
+                    loadDataAdmin(); // Method untuk refresh isi tabel admin
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus akun admin.");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menghapus data!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_hapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,13 +571,16 @@ public class daftar_admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Daftar;
+    private javax.swing.JTable Tabeldaftaradmin;
     private template.RoundedButton daftar_pengajuan;
+    private javax.swing.JButton hapus;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField password;
     private template.RoundedButton roundedButton1;
@@ -506,7 +591,7 @@ public class daftar_admin extends javax.swing.JFrame {
     private template.RoundedPanel roundedPanel2;
     private template.RoundedPanel roundedPanel3;
     private template.RoundedPanel roundedPanel4;
-    private template.TabelAdmin tabelAdmin;
+    private template.RoundedTextField searchbar;
     private javax.swing.JTextField username;
     private template.RoundedButton verifikasi;
     // End of variables declaration//GEN-END:variables

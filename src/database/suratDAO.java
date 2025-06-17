@@ -39,7 +39,7 @@ public class suratDAO {
     // Tambahkan method baru di suratDAO
     public List<SuratDataUmum> getSuratPengajuan() throws SQLException {
         List<SuratDataUmum> list = new ArrayList<>();
-        String query = "SELECT * FROM surat WHERE statusSurat IN ('Menunggu', 'Diproses')";
+        String query = "SELECT * FROM surat WHERE statusSurat IN ('Menunggu', 'Disetujui', 'Ditolak')";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 

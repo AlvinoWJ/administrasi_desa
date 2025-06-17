@@ -10,11 +10,14 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import database.suratDAO;           
 import database.koneksidatabase; 
+import java.util.regex.Pattern;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -28,10 +31,9 @@ public class daftar_pengajuan extends javax.swing.JFrame {
         try {
             Connection conn = koneksidatabase.getConnection();
             suratDAO dao = new suratDAO(conn);
-            List<suratDAO.SuratDataUmum> data = dao.getSuratByStatus("Menunggu");
+            List<suratDAO.SuratDataUmum> data = dao.getSuratPengajuan();
 
-
-            String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            String[] columnNames = {"id", "nomor surat", "jenis surat", "Status"};
             Object[][] rowData = new Object[data.size()][columnNames.length];
             for (int i = 0; i < data.size(); i++) {
                 suratDAO.SuratDataUmum sdu = data.get(i);
@@ -43,35 +45,30 @@ public class daftar_pengajuan extends javax.swing.JFrame {
             }
             javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(rowData, columnNames);
             this.Tabelpengajuan.setModel(tableModel);
-
             Tabelpengajuan.setModel(tableModel);
+            
             // Inisialisasi sorter dan set ke tabel
             sorter = new TableRowSorter<>(tableModel);
             Tabelpengajuan.setRowSorter(sorter);
-
-            // Tambahkan listener ke search bar
             searchbar.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
-                public void insertUpdate(DocumentEvent e) {
-                    filter();
-                }
+                public void insertUpdate(DocumentEvent e) { filter(); }
 
                 @Override
-                public void removeUpdate(DocumentEvent e) {
-                    filter();
-                }
+                public void removeUpdate(DocumentEvent e) { filter(); }
 
                 @Override
-                public void changedUpdate(DocumentEvent e) {
-                    filter();
-                }
+                public void changedUpdate(DocumentEvent e) { filter(); }
 
                 private void filter() {
-                    String text = searchbar.getText();
-                    if (text.trim().length() == 0) {
-                        sorter.setRowFilter(null);
-                    } else {
-                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    String text = searchbar.getText().trim();
+                    if (sorter != null) {
+                        if (text.isEmpty()) {
+                            sorter.setRowFilter(null);
+                        } else {
+                            // Misalnya kolom "Nomor Surat" di kolom 1
+                            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text), 0));
+                        }
                     }
                 }
             });
@@ -313,9 +310,9 @@ public class daftar_pengajuan extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(31, 31, 31)
                 .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

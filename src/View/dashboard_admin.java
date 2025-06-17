@@ -27,7 +27,7 @@ public class dashboard_admin extends javax.swing.JFrame {
             suratDAO dao = new suratDAO(conn);
             List<suratDAO.SuratDataUmum> data = dao.getSuratPengajuan();
 
-            String[] columnNames = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            String[] columnNames = {"id", "nomor surat", "jenis surat", "Status"};
             Object[][] rowData = new Object[data.size()][columnNames.length];
             for (int i = 0; i < data.size(); i++) {
                 suratDAO.SuratDataUmum sdu = data.get(i);
@@ -43,7 +43,7 @@ public class dashboard_admin extends javax.swing.JFrame {
             // == TABEL RIWAYAT (status = Disetujui atau Ditolak) ==
             List<suratDAO.SuratDataUmum> riwayatData = dao.getSuratRiwayat();
 
-            String[] columnNames3 = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            String[] columnNames3 = {"id", "nomor surat", "jenis surat", "Status"};
             Object[][] rowData3 = new Object[riwayatData.size()][columnNames3.length];
             for (int i = 0; i < riwayatData.size(); i++) {
                 suratDAO.SuratDataUmum sdu = riwayatData.get(i);
@@ -59,7 +59,7 @@ public class dashboard_admin extends javax.swing.JFrame {
             // == TABEL BELUM DIVERIFIKASI (status = Diproses) ==
             List<suratDAO.SuratDataUmum> dataVerifikasi = dao.getSuratBelumDiverifikasi();
 
-            String[] columnNames2 = {"id_surat", "nomor_surat", "jenis_surat", "statusSurat"};
+            String[] columnNames2 = {"id", "nomor surat", "jenis surat", "Status"};
             Object[][] rowData2 = new Object[dataVerifikasi.size()][columnNames2.length];
             for (int i = 0; i < dataVerifikasi.size(); i++) {
                 suratDAO.SuratDataUmum sdu = dataVerifikasi.get(i);
@@ -71,15 +71,9 @@ public class dashboard_admin extends javax.swing.JFrame {
 
             javax.swing.table.DefaultTableModel modelVerifikasi = new javax.swing.table.DefaultTableModel(rowData2, columnNames2);
             this.TabelVerifikasi.setModel(modelVerifikasi);
-
-
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Gagal memuat data: " + ex.getMessage());
         }
-        
-        
-        
          setSize(1540, 860);
          setLocationRelativeTo(null); 
     }
@@ -146,6 +140,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tabelpengajuan.setRowHeight(40);
         jScrollPane2.setViewportView(Tabelpengajuan);
         if (Tabelpengajuan.getColumnModel().getColumnCount() > 0) {
             Tabelpengajuan.getColumnModel().getColumn(0).setResizable(false);
@@ -198,6 +193,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TabelPengajuanSelesai.setRowHeight(40);
         jScrollPane4.setViewportView(TabelPengajuanSelesai);
 
         roundedPanel4.setBackground(new java.awt.Color(51, 153, 255));
@@ -287,6 +283,7 @@ public class dashboard_admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TabelVerifikasi.setRowHeight(40);
         jScrollPane3.setViewportView(TabelVerifikasi);
 
         roundedPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -447,9 +444,7 @@ public class dashboard_admin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,6 +522,16 @@ public class dashboard_admin extends javax.swing.JFrame {
         Tabelpengajuan.getColumnModel().getColumn(3).setPreferredWidth(120);
         
         TabelVerifikasi.setRowHeight(30);
+        TabelVerifikasi.getColumnModel().getColumn(0).setPreferredWidth(50);
+        TabelVerifikasi.getColumnModel().getColumn(1).setPreferredWidth(150);
+        TabelVerifikasi.getColumnModel().getColumn(2).setPreferredWidth(150);
+        TabelVerifikasi.getColumnModel().getColumn(3).setPreferredWidth(120);
+        
+        TabelPengajuanSelesai.setRowHeight(30);
+        TabelPengajuanSelesai.getColumnModel().getColumn(0).setPreferredWidth(50);
+        TabelPengajuanSelesai.getColumnModel().getColumn(1).setPreferredWidth(150);
+        TabelPengajuanSelesai.getColumnModel().getColumn(2).setPreferredWidth(150);
+        TabelPengajuanSelesai.getColumnModel().getColumn(3).setPreferredWidth(120);
     }//GEN-LAST:event_formWindowOpened
 
     /**

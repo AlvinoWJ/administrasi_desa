@@ -12,17 +12,15 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
+import javax.swing.RowFilter;
 
-
-/**
- *
- * @author hp
- */
 public class riwayat_pembuatan extends javax.swing.JFrame {
-
-    /**
-     * Creates new form daftar_pengajuan
-     */
+    private TableRowSorter<DefaultTableModel> sorter;
     public riwayat_pembuatan() {
     initComponents();
     setSize(1540, 860);
@@ -44,7 +42,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         "Status Surat"
     };
     DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-    Tabelpengajuan.setModel(model);
+    Tabelriwayat.setModel(model);
 
     for (SuratDataUmum surat : data) {
         model.addRow(new Object[]{
@@ -58,6 +56,31 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             surat.getstatusSurat()
         });
     }
+    
+    sorter = new TableRowSorter<>(model);
+    Tabelriwayat.setRowSorter(sorter);
+    searchbar.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) { filter(); }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) { filter(); }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) { filter(); }
+
+        private void filter() {
+            String text = searchbar.getText().trim();
+            if (sorter != null) {
+                if (text.isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    // Misalnya kolom "Nomor Surat" di kolom 1
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text), 0));
+                }
+            }
+        }
+    });
 } catch (Exception e) {
     e.printStackTrace();
     JOptionPane.showMessageDialog(this, "Gagal memuat data riwayat.\n" + e.getMessage());
@@ -85,12 +108,17 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         searchbar = new template.RoundedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Tabelpengajuan = new javax.swing.JTable();
+        Tabelriwayat = new javax.swing.JTable();
         lihat_detail = new javax.swing.JButton();
         detailArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -235,8 +263,8 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             }
         });
 
-        Tabelpengajuan.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
-        Tabelpengajuan.setModel(new javax.swing.table.DefaultTableModel(
+        Tabelriwayat.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        Tabelriwayat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -255,7 +283,8 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(Tabelpengajuan);
+        Tabelriwayat.setRowHeight(40);
+        jScrollPane2.setViewportView(Tabelriwayat);
 
         lihat_detail.setFont(new java.awt.Font("SansSerif", 3, 20)); // NOI18N
         lihat_detail.setForeground(new java.awt.Color(51, 153, 255));
@@ -370,12 +399,12 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbarActionPerformed
 
     private void lihat_detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihat_detailActionPerformed
-        int selectedRow = Tabelpengajuan.getSelectedRow();
+        int selectedRow = Tabelriwayat.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Pilih salah satu baris dulu!");
             return;
         }
-        String nomorSurat = Tabelpengajuan.getValueAt(selectedRow, 1).toString(); // Kolom ke-1: nomorSurat
+        String nomorSurat = Tabelriwayat.getValueAt(selectedRow, 1).toString(); // Kolom ke-1: nomorSurat
 
         try {
             Connection conn = koneksidatabase.getConnection();
@@ -401,6 +430,10 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal memuat detail!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lihat_detailActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+         Tabelriwayat.setRowHeight(30);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -439,7 +472,7 @@ public class riwayat_pembuatan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabelpengajuan;
+    private javax.swing.JTable Tabelriwayat;
     private template.RoundedButton daftar_pengajuan;
     private javax.swing.JTextArea detailArea;
     private javax.swing.JButton jButton1;

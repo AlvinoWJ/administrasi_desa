@@ -469,6 +469,8 @@ public class ViewSuratUsaha extends javax.swing.JFrame {
 
             // 5. Tampilkan pesan sukses
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+            this.dispose();
+            new ViewMainUser().setVisible(true);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());

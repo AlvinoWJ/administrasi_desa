@@ -11,15 +11,8 @@ import model.suratkematian;
 import database.suratkematianDAO;           
 import database.koneksidatabase;
 
-/**
- *
- * @author hp
- */
 public class ViewSuratKematian extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewSuratKematian
-     */
     public ViewSuratKematian() {
         initComponents();
         setSize(1540, 860);
@@ -512,6 +505,8 @@ public class ViewSuratKematian extends javax.swing.JFrame {
 
             // 5. Tampilkan pesan sukses
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+            this.dispose();
+            new ViewMainUser().setVisible(true);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());

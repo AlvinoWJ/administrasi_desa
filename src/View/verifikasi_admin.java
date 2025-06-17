@@ -16,11 +16,9 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import java.util.regex.Pattern;
-
 import java.util.HashMap;
 import java.util.Map; 
 import utils.PDFGenerator;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import database.suratdomisiliDAO;
@@ -34,13 +32,6 @@ import model.suratmenikah;
 import database.suratkematianDAO;
 import model.suratkematian;
 
-
-
-
-/**
- *
- * @author hp
- */
 public class verifikasi_admin extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> sorter;
     public verifikasi_admin() {
@@ -79,7 +70,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
         try {
             Connection conn = koneksidatabase.getConnection();
             suratDAO dao = new suratDAO(conn);
-            List<suratDAO.SuratDataUmum> daftar = dao.getSuratPengajuan();
+            List<suratDAO.SuratDataUmum> daftar = dao.getSuratBelumDiverifikasi();
 
             for (suratDAO.SuratDataUmum s : daftar) {
                 if (keyword == null || keyword.isEmpty() ||
@@ -368,9 +359,9 @@ public class verifikasi_admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(26, 26, 26)
-                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -379,7 +370,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
                     .addComponent(lihat_detail))
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -390,9 +381,7 @@ public class verifikasi_admin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

@@ -11,6 +11,7 @@ import model.suratdomisili;
 import database.suratdomisiliDAO;           
 import database.koneksidatabase;       
 import database.suratDAO;
+
 /**
  *
  * @author hp
@@ -395,6 +396,9 @@ public class ViewSuratDomisili extends javax.swing.JFrame {
 
         // 5. Tampilkan pesan sukses
         JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+        this.dispose();
+        new ViewMainUser().setVisible(true);
+        
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + ex.getMessage());
         ex.printStackTrace();
